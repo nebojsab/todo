@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const Todos = styled.div`
@@ -42,9 +42,7 @@ const TodosCat = styled.div`
     text-transform: uppercase;
 `;
 
-export default function TodosList() {
-    const [todos, setTodos] = useState([]);
-
+export default function TodosList({ items }) {
     function getTimeRemaining(endTime) {
         const total = Date.parse(endTime) - Date.parse(new Date());
         const seconds = Math.floor((total / 1000) % 60);
@@ -61,20 +59,13 @@ export default function TodosList() {
         };
     }
 
-    useEffect(() => {
-        const json = localStorage.getItem("newData");
-        if (json) {
-            setTodos(JSON.parse(json));
-        }
-        console.log(JSON.parse(json));
-    }, []);
-
     return (
-        <Todos className="todos">
-            {todos.map((item) => (
-                <TodosItem
-                    key={item.title}
-                    className={`todos__item
+        <>
+            <Todos className="todos">
+                {items.map((item) => (
+                    <TodosItem
+                        key={item.title}
+                        className={`todos__item
                         ${
                             getTimeRemaining(item.date).days < 0
                                 ? "red"
@@ -83,15 +74,16 @@ export default function TodosList() {
                                 : ""
                         }
                     `}
-                >
-                    <TodosTitle>{item.title}</TodosTitle>
-                    <TodosDescription>{item.description}</TodosDescription>
-                    <TodosDueDate>
-                        Due date: <span>{item.date}</span>
-                    </TodosDueDate>
-                    <TodosCat>{item.category} category</TodosCat>
-                </TodosItem>
-            ))}
-        </Todos>
+                    >
+                        <TodosTitle>{item.title}</TodosTitle>
+                        <TodosDescription>{item.description}</TodosDescription>
+                        <TodosDueDate>
+                            Due date: <span>{item.date}</span>
+                        </TodosDueDate>
+                        <TodosCat>{item.category} category</TodosCat>
+                    </TodosItem>
+                ))}
+            </Todos>
+        </>
     );
 }

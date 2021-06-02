@@ -1,33 +1,18 @@
-import React, { useState, useEffect } from "react";
-import data from "../data/todos.json";
+import React, { useEffect } from "react";
 
 const categories = ["Intervies", "Travel spots", "Shop lists", "Home notes"];
 
-export default function TodosForm() {
-    const todosList = data;
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [date, setDate] = useState("");
-    const [category, setCategory] = useState("");
-    const [items, updateItems] = useState(todosList);
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        updateItems([
-            ...items,
-            {
-                title: title,
-                description: description,
-                date: date,
-                category: category,
-            },
-        ]);
-        setTitle("");
-        setDescription("");
-        setDate("");
-        setCategory("");
-    };
-
+export default function TodosForm({
+    date,
+    title,
+    description,
+    category,
+    handleSubmit,
+    handleTitleOnChange,
+    handleDescriptionOnChange,
+    handleDateOnChange,
+    handleCategoryOnChange,
+}) {
     useEffect(() => {
         document.getElementById("datePicker").min = new Date(
             new Date().getTime() - new Date().getTimezoneOffset() * 60000
@@ -36,20 +21,6 @@ export default function TodosForm() {
             .split("T")[0];
     }, []);
 
-    useEffect(() => {
-        const newData = localStorage.getItem("newData");
-
-        if (newData) {
-            updateItems(JSON.parse(newData));
-            console.log(JSON.parse(newData));
-        }
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem("newData", JSON.stringify(items));
-        // console.log(JSON.stringify(items));
-    });
-
     return (
         <>
             <form onSubmit={handleSubmit}>
@@ -57,12 +28,14 @@ export default function TodosForm() {
                     type="text"
                     placeholder="ToDo Title"
                     name={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={title}
+                    onChange={handleTitleOnChange}
                     required
                 />
                 <textarea
                     name={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    value={description}
+                    onChange={handleDescriptionOnChange}
                     id={description}
                     required
                 ></textarea>
@@ -70,14 +43,15 @@ export default function TodosForm() {
                     type="date"
                     id="datePicker"
                     name={date}
-                    onChange={(e) => setDate(e.target.value)}
+                    value={date}
+                    onChange={handleDateOnChange}
                     required
                 />
                 <select
                     id="animal"
                     value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    onBlur={(e) => setCategory(e.target.value)}
+                    onChange={handleCategoryOnChange}
+                    onBlur={handleCategoryOnChange}
                 >
                     <option />
                     {categories.map((cat) => (
