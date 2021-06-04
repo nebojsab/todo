@@ -48,6 +48,7 @@ export default function TodosForm({
                     required
                 />
                 <select
+                    required
                     id="animal"
                     value={category}
                     onChange={handleCategoryOnChange}

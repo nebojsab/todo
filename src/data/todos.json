@@ -1,23 +1,31 @@
 [
     {
+        "id": 1,
+        "complete": false,
         "title": "Name one",
         "description": "Nostrud excepteur tempor laborum occaecat mollit Lorem anim pariatur in nulla.",
         "date": "2021-07-03",
         "category": "Intervies"
     },
     {
+        "id": 2,
+        "complete": false,
         "title": "Name two",
         "description": "Nostrud excepteur tempor laborum occaecat mollit Lorem anim pariatur in nulla.",
         "date": "2021-09-13",
         "category": "Travel spots"
     },
     {
+        "id": 3,
+        "complete": false,
         "title": "Name three",
         "description": "Nostrud excepteur tempor laborum occaecat mollit Lorem anim pariatur in nulla.",
         "date": "2021-06-03",
         "category": "Shop lists"
     },
     {
+        "id": 4,
+        "complete": false,
         "title": "Name four",
         "description": "Nostrud excepteur tempor laborum occaecat mollit Lorem anim pariatur in nulla.",
         "date": "2021-05-05",

@@ -10,7 +10,8 @@ const App = () => {
     const [description, setDescription] = useState("");
     const [date, setDate] = useState("");
     const [category, setCategory] = useState("");
-    const [items, updateItems] = useState(todosList);
+    const [todos, setTodos] = useState(todosList);
+    const [filterdTodos, setFilteredTodos] = useState([]);
 
     const handleTitleOnChange = (e) => setTitle(e.target.value);
     const handleDescriptionOnChange = (e) => setDescription(e.target.value);
@@ -19,13 +20,15 @@ const App = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        updateItems([
-            ...items,
+        setTodos([
+            ...todos,
             {
                 title: title,
                 description: description,
                 date: date,
                 category: category,
+                id: Math.random() * 100,
+                complete: false,
             },
         ]);
         setTitle("");
@@ -37,12 +40,12 @@ const App = () => {
     useEffect(() => {
         const json = localStorage.getItem("newData");
         if (json) {
-            updateItems(JSON.parse(json));
+            setTodos(JSON.parse(json));
         }
     }, []);
 
     useEffect(() => {
-        localStorage.setItem("newData", JSON.stringify(items));
+        localStorage.setItem("newData", JSON.stringify(todos));
     });
 
     return (
@@ -59,7 +62,8 @@ const App = () => {
                 date={date}
                 category={category}
             />
-            <TodosList items={items} />
+            <TodosFilter />
+            <TodosList todos={todos} setTodos={setTodos} />
         </div>
     );
 };
