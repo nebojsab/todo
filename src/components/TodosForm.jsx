@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 const categories = ["Intervies", "Travel spots", "Shop lists", "Home notes"];
 
@@ -13,6 +13,18 @@ export default function TodosForm({
     handleDateOnChange,
     handleCategoryOnChange,
 }) {
+    const [textAreaCount, setTextAreaCount] = useState("");
+
+    const charCountHandler = (e) => {
+        if (e.target.value.length > 119) {
+            setTextAreaCount("Max 120 characters allowed!");
+        } else if (e.target.value.length > 0 && e.target.value.length < 119) {
+            setTextAreaCount(`${e.target.value.length} / 120`);
+        } else {
+            null;
+        }
+    };
+
     useEffect(() => {
         document.getElementById("datePicker").min = new Date(
             new Date().getTime() - new Date().getTimezoneOffset() * 60000
@@ -34,11 +46,14 @@ export default function TodosForm({
                 />
                 <textarea
                     name={description}
+                    maxLength="120"
                     value={description}
                     onChange={handleDescriptionOnChange}
+                    onKeyUp={charCountHandler}
                     id={description}
                     required
                 ></textarea>
+                <span>{textAreaCount}</span>
                 <input
                     type="date"
                     id="datePicker"
