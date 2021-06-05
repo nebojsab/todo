@@ -2,14 +2,18 @@
     {
         "id": 1,
         "complete": false,
+        "expired": false,
+        "expiring": false,
         "title": "Name one",
         "description": "Nostrud excepteur tempor laborum occaecat mollit Lorem anim pariatur in nulla.",
         "date": "2021-07-03",
-        "category": "Intervies"
+        "category": "Interviews"
     },
     {
         "id": 2,
         "complete": false,
+        "expired": false,
+        "expiring": false,
         "title": "Name two",
         "description": "Nostrud excepteur tempor laborum occaecat mollit Lorem anim pariatur in nulla.",
         "date": "2021-09-13",
@@ -18,6 +22,8 @@
     {
         "id": 3,
         "complete": false,
+        "expired": false,
+        "expiring": false,
         "title": "Name three",
         "description": "Nostrud excepteur tempor laborum occaecat mollit Lorem anim pariatur in nulla.",
         "date": "2021-06-03",
@@ -26,6 +32,8 @@
     {
         "id": 4,
         "complete": false,
+        "expired": false,
+        "expiring": false,
         "title": "Name four",
         "description": "Nostrud excepteur tempor laborum occaecat mollit Lorem anim pariatur in nulla.",
         "date": "2021-05-05",

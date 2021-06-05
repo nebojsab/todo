@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 const TodosItem = styled.div`
@@ -64,11 +64,37 @@ export default function Todo({ todos, todo, setTodos }) {
         );
     };
 
+    const expiredHandler = () => {
+        setTodos(
+            todos.map((item) => {
+                if (getTimeRemaining(item.date).days < 0) {
+                    return { ...item, expired: true };
+                }
+                return item;
+            })
+        );
+    };
+
+    const expiringHandler = () => {
+        setTodos(
+            todos.map((item) => {
+                if (getTimeRemaining(item.date).days <= 2) {
+                    return { ...item, expiring: true };
+                }
+                return item;
+            })
+        );
+    };
+
     const deleteHandler = () => {
         setTodos(todos.filter((el) => el.id !== todo.id));
-
-        console.log(todo);
     };
+
+    useEffect(() => {
+        expiredHandler();
+        expiringHandler();
+    }, []);
+
     return (
         <TodosItem
             id={todo.id}
@@ -86,6 +112,7 @@ export default function Todo({ todos, todo, setTodos }) {
         >
             <button onClick={deleteHandler}>delete</button>
             <button onClick={completedHandler}>completed</button>
+            <button onClick={expiredHandler}>set expired true</button>
             <TodosTitle>{todo.title}</TodosTitle>
             <TodosDescription>{todo.description}</TodosDescription>
             <TodosDueDate>

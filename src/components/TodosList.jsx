@@ -9,11 +9,12 @@ const Todos = styled.div`
     justify-content: flex-start;
 `;
 
-export default function TodosList({ todos, setTodos }) {
+export default function TodosList({ todos, setTodos, filterTodos }) {
+    // console.log(filterTodos);
     return (
         <>
             <Todos className="todos">
-                {todos.map((todo) => (
+                {filterTodos.map((todo) => (
                     <Todo
                         key={todo.id}
                         setTodos={setTodos}
