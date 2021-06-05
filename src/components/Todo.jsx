@@ -53,11 +53,19 @@ export default function Todo({ todos, todo, setTodos }) {
         };
     }
 
+    const lastThanZero = todos.map(
+        (item) => getTimeRemaining(item.date).days < 0
+    );
+    const lastThanTwo = todos.map(
+        (item) => getTimeRemaining(item.date).days <= 2
+    );
+    console.log(lastThanZero, lastThanTwo);
+
     const completedHandler = () => {
         setTodos(
             todos.map((item) => {
                 if (item.id === todo.id) {
-                    return { ...item, complete: !item.complete };
+                    return { ...item, complete: true };
                 }
                 return item;
             })
@@ -86,6 +94,17 @@ export default function Todo({ todos, todo, setTodos }) {
         );
     };
 
+    const sortExpiringHandler = () => {
+        setTodos(
+            todos.map((item) => {
+                if (item.expired) {
+                    return { ...item, expiring: false };
+                }
+                return item;
+            })
+        );
+    };
+
     const deleteHandler = () => {
         setTodos(todos.filter((el) => el.id !== todo.id));
     };
@@ -93,6 +112,7 @@ export default function Todo({ todos, todo, setTodos }) {
     useEffect(() => {
         expiredHandler();
         expiringHandler();
+        sortExpiringHandler();
     }, []);
 
     return (
@@ -112,7 +132,6 @@ export default function Todo({ todos, todo, setTodos }) {
         >
             <button onClick={deleteHandler}>delete</button>
             <button onClick={completedHandler}>completed</button>
-            <button onClick={expiredHandler}>set expired true</button>
             <TodosTitle>{todo.title}</TodosTitle>
             <TodosDescription>{todo.description}</TodosDescription>
             <TodosDueDate>
