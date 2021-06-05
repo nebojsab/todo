@@ -5,7 +5,7 @@ import Todo from "./Todo";
 
 const Todos = styled.div`
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: flex-start;
 `;
 

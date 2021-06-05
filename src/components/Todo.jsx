@@ -5,21 +5,26 @@ const TodosItem = styled.div`
     padding: 1rem;
     margin: 20px;
     display: flex;
-    flex-grow: 1;
     flex-direction: column;
-    width: calc(33% - 6rem);
-    height: 400px;
-    max-width: calc(33% - 6rem);
+    align-items: flex-start;
     border: 1px solid #ccc;
 `;
 
+const TodosTopRow = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+`;
+
 const TodosTitle = styled.h2`
-    font-size: 4rem;
+    font-size: 1.5rem;
     font-weight: bold;
+    margin: 0;
 `;
 
 const TodosDescription = styled.div`
-    font-size: 1.25rem;
+    font-size: 1rem;
     line-height: 1.5rem;
     font-weight: lighter;
 `;
@@ -34,6 +39,22 @@ const TodosCat = styled.div`
     font-weight: 500;
     font-size: 0.855rem;
     text-transform: uppercase;
+`;
+
+const ButtonDelete = styled.button`
+    color: #333;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+`;
+
+const ButtonComplete = styled.button`
+    color: #333;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    background: none;
+    border: none;
 `;
 
 export default function Todo({ todos, todo, setTodos }) {
@@ -52,14 +73,6 @@ export default function Todo({ todos, todo, setTodos }) {
             seconds,
         };
     }
-
-    const lastThanZero = todos.map(
-        (item) => getTimeRemaining(item.date).days < 0
-    );
-    const lastThanTwo = todos.map(
-        (item) => getTimeRemaining(item.date).days <= 2
-    );
-    console.log(lastThanZero, lastThanTwo);
 
     const completedHandler = () => {
         setTodos(
@@ -110,8 +123,8 @@ export default function Todo({ todos, todo, setTodos }) {
     };
 
     useEffect(() => {
-        expiredHandler();
         expiringHandler();
+        expiredHandler();
         sortExpiringHandler();
     }, []);
 
@@ -130,14 +143,20 @@ export default function Todo({ todos, todo, setTodos }) {
                         ${todo.complete ? "todos__complete" : ""}
                     `}
         >
-            <button onClick={deleteHandler}>delete</button>
-            <button onClick={completedHandler}>completed</button>
-            <TodosTitle>{todo.title}</TodosTitle>
+            <TodosTopRow>
+                <TodosTitle>{todo.title}</TodosTitle>
+                <TodosDueDate>
+                    Due date: <span>{todo.date}</span>
+                </TodosDueDate>
+                <TodosCat>{todo.category} category</TodosCat>
+                <div>
+                    <ButtonDelete onClick={deleteHandler}>delete</ButtonDelete>
+                    <ButtonComplete onClick={completedHandler}>
+                        completed
+                    </ButtonComplete>
+                </div>
+            </TodosTopRow>
             <TodosDescription>{todo.description}</TodosDescription>
-            <TodosDueDate>
-                Due date: <span>{todo.date}</span>
-            </TodosDueDate>
-            <TodosCat>{todo.category} category</TodosCat>
         </TodosItem>
     );
 }
