@@ -123,8 +123,14 @@ export default function Todo({ todos, todo, setTodos }) {
     };
 
     useEffect(() => {
-        expiringHandler();
         expiredHandler();
+    }, []);
+
+    useEffect(() => {
+        expiringHandler();
+    }, []);
+
+    useEffect(() => {
         sortExpiringHandler();
     }, []);
 
