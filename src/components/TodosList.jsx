@@ -1,4 +1,6 @@
 import React from "react";
+import { useSpring, useTransition, config, animated } from "react-spring";
+
 import styled from "styled-components";
 
 import Todo from "./Todo";
@@ -10,17 +12,30 @@ const Todos = styled.div`
 `;
 
 export default function TodosList({ todos, setTodos, filterTodos }) {
-    // console.log(filterTodos);
+    const listTransitions = useTransition(filterTodos, {
+        config: config.gentle,
+        from: { opacity: 0, transform: "translate3d(-25%, 0px, 0px)" },
+        enter: { opacity: 1, transform: "translate3d(0%, 0px, 0px)" },
+        leave: {
+            opacity: 0,
+            height: 0,
+            transform: "translate3d(25%, 0px, 0px)",
+        },
+        keys: filterTodos.map((item, index) => index),
+    });
+
     return (
         <>
             <Todos className="todos">
-                {filterTodos.map((todo) => (
-                    <Todo
-                        key={todo.id}
-                        setTodos={setTodos}
-                        todo={todo}
-                        todos={todos}
-                    />
+                {listTransitions((styles, todo) => (
+                    <animated.div style={styles}>
+                        <Todo
+                            key={todo.id}
+                            setTodos={setTodos}
+                            todo={todo}
+                            todos={todos}
+                        />
+                    </animated.div>
                 ))}
             </Todos>
         </>

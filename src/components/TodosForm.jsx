@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const categories = ["Intervies", "Travel spots", "Shop lists", "Home notes"];
+const categories = ["Interviews", "Travel spots", "Shop lists", "Home notes"];
 
 export default function TodosForm({
     date,
@@ -16,10 +16,11 @@ export default function TodosForm({
     const [textAreaCount, setTextAreaCount] = useState("");
 
     const charCountHandler = (e) => {
-        if (e.target.value.length > 119) {
+        const charLength = e.target.value.length;
+        if (charLength > 119) {
             setTextAreaCount("Max 120 characters allowed!");
-        } else if (e.target.value.length > 0 && e.target.value.length < 119) {
-            setTextAreaCount(`${e.target.value.length} / 120`);
+        } else if (charLength > 0 && charLength < 119) {
+            setTextAreaCount(`${charLength} / 120`);
         } else {
             null;
         }
@@ -49,7 +50,7 @@ export default function TodosForm({
                     maxLength="120"
                     value={description}
                     onChange={handleDescriptionOnChange}
-                    onKeyUp={charCountHandler}
+                    onKeyDown={charCountHandler}
                     id={description}
                     required
                 ></textarea>

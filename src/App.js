@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
-import TodosForm from "./components/TodosForm";
 import TodosList from "./components/TodosList";
 import TodosFilter from "./components/TodosFilter";
+import Modal from "./components/Modal";
 import data from "./data/todos.json";
 
 const App = () => {
@@ -14,12 +14,18 @@ const App = () => {
     const [status, setStatus] = useState("All");
     const [todos, setTodos] = useState(todosList);
     const [filterTodos, setFilteredTodos] = useState([]);
-    filterTodos.sort();
+    const [modalVisible, setModalVisible] = useState(false);
 
     const handleTitleOnChange = (e) => setTitle(e.target.value);
     const handleDescriptionOnChange = (e) => setDescription(e.target.value);
     const handleDateOnChange = (e) => setDate(e.target.value);
     const handleCategoryOnChange = (e) => setCategory(e.target.value);
+
+    const toggleModal = () => {
+        setModalVisible(!modalVisible);
+    };
+
+    const wrapperRef = useRef(null);
 
     const filteredTodos = () => {
         switch (status) {
@@ -86,9 +92,23 @@ const App = () => {
         setDescription("");
         setDate("");
         setCategory("");
+        toggleModal();
     };
 
-    useEffect(() => {}, []);
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (
+                wrapperRef.current &&
+                !wrapperRef.current.contains(event.target)
+            ) {
+                setModalVisible(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [wrapperRef]);
 
     useEffect(() => {
         const json = localStorage.getItem("newData");
@@ -108,7 +128,14 @@ const App = () => {
     return (
         <div>
             <h1>ToDo App</h1>
-            <TodosForm
+            <TodosFilter todos={todos} setStatus={setStatus} />
+            <TodosList
+                todos={todos}
+                setTodos={setTodos}
+                filterTodos={filterTodos}
+            />
+            <button onClick={toggleModal}>Show Modal</button>
+            <Modal
                 handleSubmit={handleSubmit}
                 handleTitleOnChange={handleTitleOnChange}
                 handleDescriptionOnChange={handleDescriptionOnChange}
@@ -118,12 +145,9 @@ const App = () => {
                 description={description}
                 date={date}
                 category={category}
-            />
-            <TodosFilter todos={todos} setStatus={setStatus} />
-            <TodosList
-                todos={todos}
-                setTodos={setTodos}
-                filterTodos={filterTodos}
+                modalVisible={modalVisible}
+                toggleModal={toggleModal}
+                wrapperRef={wrapperRef}
             />
         </div>
     );
