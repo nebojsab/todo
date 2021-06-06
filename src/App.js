@@ -25,7 +25,7 @@ const App = () => {
         setModalVisible(!modalVisible);
     };
 
-    const wrapperRef = useRef(null);
+    const modalRef = useRef(null);
 
     const filteredTodos = () => {
         switch (status) {
@@ -96,19 +96,16 @@ const App = () => {
     };
 
     useEffect(() => {
-        function handleClickOutside(event) {
-            if (
-                wrapperRef.current &&
-                !wrapperRef.current.contains(event.target)
-            ) {
+        function handleModalClickOutside(event) {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
                 setModalVisible(false);
             }
         }
-        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("mousedown", handleModalClickOutside);
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("mousedown", handleModalClickOutside);
         };
-    }, [wrapperRef]);
+    }, [modalRef]);
 
     useEffect(() => {
         const json = localStorage.getItem("newData");
@@ -128,13 +125,13 @@ const App = () => {
     return (
         <div>
             <h1>ToDo App</h1>
+            <button onClick={toggleModal}>Add ToDo</button>
             <TodosFilter todos={todos} setStatus={setStatus} />
             <TodosList
                 todos={todos}
                 setTodos={setTodos}
                 filterTodos={filterTodos}
             />
-            <button onClick={toggleModal}>Show Modal</button>
             <Modal
                 handleSubmit={handleSubmit}
                 handleTitleOnChange={handleTitleOnChange}
@@ -147,7 +144,7 @@ const App = () => {
                 category={category}
                 modalVisible={modalVisible}
                 toggleModal={toggleModal}
-                wrapperRef={wrapperRef}
+                modalRef={modalRef}
             />
         </div>
     );
