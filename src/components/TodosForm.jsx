@@ -27,7 +27,7 @@ const TextInput = styled.input`
         -9px -9px 18px 8px rgba(255, 255, 255, 0) inset;
 `;
 
-const TextArea = styled.input`
+const TextArea = styled.textarea`
     background-color: #efeeee;
     border: none;
     border-radius: 6px;
