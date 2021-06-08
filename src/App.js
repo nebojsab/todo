@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import TodosList from "./components/TodosList";
 import TodosFilter from "./components/TodosFilter";
+import RandomUsers from "./components/RandomUsers";
 import Modal from "./components/Modal";
 import data from "./data/todos.json";
 
@@ -125,6 +126,7 @@ const App = () => {
     return (
         <div>
             <h1>ToDo App</h1>
+            <RandomUsers />
             <button onClick={toggleModal}>Add ToDo</button>
             <TodosFilter todos={todos} setStatus={setStatus} />
             <TodosList
