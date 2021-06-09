@@ -1,0 +1,38 @@
+:root {
+    --heading-font-family: "Montserrat", sans-serif;
+    --body-font-family: "Roboto", sans-serif;
+
+    //fonts
+    --base-font-weight: 400;
+
+    --p: 1.25rem;
+    --p1: 1rem;
+    --p2: 0.875rem;
+    --p3: 0.75rem;
+
+    --h1: 3rem;
+    --h2: 2rem;
+    --h3: 1.5rem;
+
+    //colors
+    --primary-blue: #99c6ef;
+    --secondary-blue: #3d72a7;
+    --ternary-blue: #284d73;
+
+    --radial-gradient: radial-gradient(
+        91.1% 5020.45% at 99.39% 0%,
+        #99c6ef 0%,
+        #052949 100%
+    );
+
+    --todo-item: #87a6c6;
+    --expired: #cea09d;
+    --expiring: #c7c193;
+    --complete: #87bac6;
+
+    --white: #fff;
+    --black: #000;
+    --light-blue-text: #eef6fe;
+
+    --body-background: #e5e5e5;
+}

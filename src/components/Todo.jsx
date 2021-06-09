@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-const TodosItem = styled.div`
-    padding: 1rem;
-    margin: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    border: 1px solid #ccc;
+const TodosDescription = styled.div`
+    font-size: 1rem;
+    line-height: 1.5rem;
+    height: 0;
+    overflow: hidden;
+    color: var(--white);
+    transition: all ease-in 0.35s;
 `;
 
 const TodosTopRow = styled.div`
@@ -15,35 +15,55 @@ const TodosTopRow = styled.div`
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    height: 60px;
+`;
+
+const TodosItem = styled.div`
+    margin: 14px 0;
+    padding: 0 10px 0 50px;
+    border-radius: 10px;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    background: var(--todo-item);
+
+    &.is-hovered ${TodosDescription} {
+        height: auto;
+        padding-bottom: 20px;
+        transition: all ease-in 0.35s;
+    }
+
+    ${(p) => (p.isExpired ? "background: var(--expired)" : "")}
+    ${(p) => (p.isExpiring ? "background: var(--expiring)" : "")}
+    ${(p) => (p.isComplete ? "background: var(--complete)" : "")}
 `;
 
 const TodosTitle = styled.h2`
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: bold;
     margin: 0;
-`;
-
-const TodosDescription = styled.div`
-    font-size: 1rem;
-    line-height: 1.5rem;
-    font-weight: lighter;
+    text-transform: uppercase;
+    color: var(--white);
 `;
 
 const TodosDueDate = styled.div`
     font-weight: 500;
     font-size: 1rem;
     font-weight: normal;
+    color: var(--white);
 `;
 
 const TodosCat = styled.div`
+    font-size: 1rem;
     font-weight: 500;
-    font-size: 0.855rem;
-    text-transform: uppercase;
+    color: var(--white);
 `;
 
 const ButtonDelete = styled.button`
     color: #333;
-    font-size: 0.85rem;
+    font-size: 1rem;
     text-transform: uppercase;
     background: none;
     border: none;
@@ -51,13 +71,16 @@ const ButtonDelete = styled.button`
 
 const ButtonComplete = styled.button`
     color: #333;
-    font-size: 0.85rem;
+    font-size: 1rem;
     text-transform: uppercase;
     background: none;
     border: none;
 `;
 
 export default function Todo({ todos, todo, setTodos }) {
+    const [hovered, setHovered] = useState(false);
+    const toggleHover = () => setHovered(!hovered);
+
     function getTimeRemaining(endTime) {
         const total = Date.parse(endTime) - Date.parse(new Date());
         const seconds = Math.floor((total / 1000) % 60);
@@ -78,7 +101,7 @@ export default function Todo({ todos, todo, setTodos }) {
         setTodos(
             todos.map((item) => {
                 if (item.id === todo.id) {
-                    return { ...item, complete: true };
+                    return { ...item, complete: !item.complete };
                 }
                 return item;
             })
@@ -90,27 +113,9 @@ export default function Todo({ todos, todo, setTodos }) {
             todos.map((item) => {
                 if (getTimeRemaining(item.date).days < 0) {
                     return { ...item, expired: true };
-                }
-                return item;
-            })
-        );
-    };
-
-    const expiringHandler = () => {
-        setTodos(
-            todos.map((item) => {
-                if (getTimeRemaining(item.date).days <= 2) {
+                } else if (getTimeRemaining(item.date).days <= 2) {
                     return { ...item, expiring: true };
-                }
-                return item;
-            })
-        );
-    };
-
-    const sortExpiringHandler = () => {
-        setTodos(
-            todos.map((item) => {
-                if (item.expired) {
+                } else if (item.expired) {
                     return { ...item, expiring: false };
                 }
                 return item;
@@ -118,43 +123,62 @@ export default function Todo({ todos, todo, setTodos }) {
         );
     };
 
+    // const expiringHandler = () => {
+    //     setTodos(
+    //         todos.map((item) => {
+    //             if (getTimeRemaining(item.date).days <= 2) {
+    //                 return { ...item, expiring: true };
+    //             }
+    //             return item;
+    //         })
+    //     );
+    // };
+
+    // const sortExpiringHandler = () => {
+    //     setTodos(
+    //         todos.map((item) => {
+    //             if (item.expired) {
+    //                 return { ...item, expiring: false };
+    //             }
+    //             return item;
+    //         })
+    //     );
+    // };
+
     const deleteHandler = () => {
         setTodos(todos.filter((el) => el.id !== todo.id));
     };
 
-    useEffect(() => {
-        expiringHandler();
-    }, []);
+    // useEffect(() => {
+    //     expiringHandler();
+    // }, []);
+
+    // useEffect(() => {
+    //     sortExpiringHandler();
+    // }, []);
 
     useEffect(() => {
         expiredHandler();
-    }, []);
-
-    useEffect(() => {
-        sortExpiringHandler();
     }, []);
 
     return (
         <TodosItem
             id={todo.id}
             key={todo.title}
-            className={`todos__item
-                        ${
-                            getTimeRemaining(todo.date).days < 0
-                                ? "red"
-                                : getTimeRemaining(todo.date).days <= 2
-                                ? "orange"
-                                : ""
-                        }
-                        ${todo.complete ? "todos__complete" : ""}
-                    `}
+            className={hovered ? "is-hovered" : ""}
+            isExpired={todo.expired}
+            isExpiring={todo.expiring}
+            isComplete={todo.complete}
+            onClick={toggleHover}
         >
             <TodosTopRow>
                 <TodosTitle>{todo.title}</TodosTitle>
                 <TodosDueDate>
-                    Due date: <span>{todo.date}</span>
+                    <b>Due date: </b> <span>{todo.date}</span>
                 </TodosDueDate>
-                <TodosCat>{todo.category} category</TodosCat>
+                <TodosCat>
+                    <b>Category: </b> {todo.category}
+                </TodosCat>
                 <div>
                     <ButtonDelete onClick={deleteHandler}>delete</ButtonDelete>
                     <ButtonComplete onClick={completedHandler}>

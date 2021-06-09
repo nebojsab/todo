@@ -1,5 +1,5 @@
 import React from "react";
-import { useSpring, useTransition, config, animated } from "react-spring";
+import { useTransition, config, animated } from "react-spring";
 
 import styled from "styled-components";
 
