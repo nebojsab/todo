@@ -18,6 +18,9 @@
     --primary-blue: #99c6ef;
     --secondary-blue: #3d72a7;
     --ternary-blue: #284d73;
+    --header-background-blue: #517f99;
+    --pale-blue: #f1f5f8;
+    --dark-text-blue: #517f99;
 
     --radial-gradient: radial-gradient(
         91.1% 5020.45% at 99.39% 0%,
@@ -25,14 +28,22 @@
         #052949 100%
     );
 
+    --button-primary-blue-shadow: rgba(40, 77, 115, 1);
+
     --todo-item: #87a6c6;
     --expired: #cea09d;
     --expiring: #c7c193;
     --complete: #87bac6;
+    --red: #a75757;
+    --orange: #e7a37f;
+    --green: #6cb69d;
 
     --white: #fff;
     --black: #000;
     --light-blue-text: #eef6fe;
+    --secondary-button-bcg: #fff0e9;
+    --secondary-button-color: #fa874a;
+    --filter-input-field-bcg: #e6edf3;
 
-    --body-background: #e5e5e5;
+    --body-background: #dee8f1;
 }

@@ -12,19 +12,20 @@ const UserBar = styled.div`
     justify-content: space-between;
     height: 110px;
     border-radius: 15px 15px 0 0;
-    background-image: var(--radial-gradient);
+    background: var(--header-background-blue);
     padding: 0 35px;
 `;
 
 const UserImage = styled.div`
-    margin-top: -37px;
+    margin-top: -52px;
 `;
 
-const UserName = styled.h3`
+const UserName = styled.h2`
     font-family: var(--heading-font-family);
-    font-size: var(--h3);
-    font-weight: 400;
+    font-size: var(--h2);
+    font-weight: 100;
     color: var(--white);
+    margin-top: -15px;
 `;
 
 export default function RandomUsers() {

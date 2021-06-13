@@ -3,19 +3,16 @@ import TodosForm from "./TodosForm";
 import styled from "styled-components";
 
 const ModalContent = styled.div`
-    background: #efeeee;
-    border-radius: 5px;
+    background: var(--white);
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
     z-index: 999;
     width: 100%;
-    max-width: 420px;
-    left: calc(50% - 210px);
+    max-width: 600px;
+    left: calc(50% - 300px);
     top: 150px;
-    padding: 1em 2em 2em;
+    padding: 48px 96px;
     position: absolute;
-    box-shadow: 9px 9px 16px 9px rgba(0, 0, 0, 0.1),
-        -9px -9px 9px 9px rgba(255, 255, 255, 0.5),
-        9px 9px 20px 8px rgba(0, 0, 0, 0) inset,
-        -9px -9px 18px 8px rgba(255, 255, 255, 0) inset;
 `;
 
 const ModalOverlay = styled.div`
@@ -25,8 +22,7 @@ const ModalOverlay = styled.div`
     width: 100%;
     height: 100%;
     z-index: 99;
-    background-color: rgba(255, 255, 255, 0.9);
-    opacity: 0.75;
+    background-color: rgba(255, 255, 255, 0.91);
 `;
 
 const ButtonClose = styled.button`
@@ -35,33 +31,37 @@ const ButtonClose = styled.button`
     align-items: center;
     justify-content: center;
     border: none;
+    background-color: var(--primary-blue);
     top: 1rem;
     right: 1rem;
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
-    background-color: #efeeee;
     cursor: pointer;
-    box-shadow: 9px 9px 16px 9px rgba(0, 0, 0, 0.1),
-        -9px -9px 9px 9px rgba(255, 255, 255, 0.5),
-        9px 9px 20px 8px rgba(0, 0, 0, 0) inset,
-        -9px -9px 18px 8px rgba(255, 255, 255, 0) inset;
+    transform: scale(1.01);
+    box-shadow: 0 2px 4px var(--button-primary-blue-shadow);
+
+    &:hover {
+        transition: all ease-in-out 0.2s;
+        box-shadow: 0 2px 2px var(--button-primary-blue-shadow);
+        transform: scale(1);
+    }
 
     &::after {
         position: absolute;
         content: "";
-        width: 10px;
-        height: 1px;
-        background: #000;
+        width: 12px;
+        height: 2px;
+        background: var(--white);
         transform: rotate(45deg);
     }
 
     &::before {
         position: absolute;
         content: "";
-        width: 10px;
-        height: 1px;
-        background: #000;
+        width: 12px;
+        height: 2px;
+        background: var(--white);
         transform: rotate(-45deg);
     }
 `;

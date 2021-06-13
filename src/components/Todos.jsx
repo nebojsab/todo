@@ -3,26 +3,70 @@ import styled from "styled-components";
 import TodosList from "./TodosList";
 import TodosFilter from "./TodosFilter";
 import Modal from "./Modal";
-import data from "../data/todos.json";
+import Button from "./Button";
+
+import logo from "../assets/images/todo-logo.png";
 
 const TodosContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding: 35px;
-    background-color: var(--white);
+    background-color: var(--pale-blue);
+    border-radius: 15px;
+    margin-top: -15px;
 `;
 
-export default function Todos() {
-    const todosList = data;
+const TodosControlBar = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0 30px;
+    position: relative;
+`;
+
+const TodosLogo = styled.div``;
+
+const FilterWrap = styled.div`
+    display: flex;
+    align-items: center;
+    max-width: 500px;
+
+    span {
+        font-size: var(--p2);
+        color: var(--dark-text-blue);
+        margin-right: 10px;
+    }
+`;
+
+const CurrentDateAndTime = styled.div`
+    letter-spacing: 1px;
+    font-size: var(--p2);
+    color: var(--secondary-button-color);
+    background-color: var(--secondary-button-bcg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2rem;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px var(--secondary-button-color);
+    height: 50px;
+`;
+
+const ButtonAdd = styled.div`
+    position: absolute;
+    left: 170px;
+    top: -75px;
+`;
+
+export default function Todos({ todos, setTodos }) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [date, setDate] = useState("");
     const [category, setCategory] = useState("");
     const [status, setStatus] = useState("All");
-    const [todos, setTodos] = useState(todosList);
     const [filterTodos, setFilteredTodos] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
+    const [dateVal, setDateVal] = useState(new Date());
 
     const handleTitleOnChange = (e) => setTitle(e.target.value);
     const handleDescriptionOnChange = (e) => setDescription(e.target.value);
@@ -123,17 +167,34 @@ export default function Todos() {
     }, []);
 
     useEffect(() => {
-        localStorage.setItem("newData", JSON.stringify(todos));
-    });
-
-    useEffect(() => {
         filteredTodos();
     }, [todos, status]);
 
+    useEffect(() => {
+        var timer = setInterval(() => setDateVal(new Date()), 1000);
+        return function cleanup() {
+            clearInterval(timer);
+        };
+    });
+
     return (
         <TodosContainer>
-            <button onClick={toggleModal}>Add ToDo</button>
-            <TodosFilter todos={todos} setStatus={setStatus} />
+            <TodosControlBar>
+                <CurrentDateAndTime>
+                    {dateVal.toLocaleDateString()} —{" "}
+                    {dateVal.toLocaleTimeString()}
+                </CurrentDateAndTime>
+                <ButtonAdd>
+                    <Button type="addButton" onClick={toggleModal}></Button>
+                </ButtonAdd>
+                <FilterWrap>
+                    <span>filter by status or by category</span>
+                    <TodosFilter todos={todos} setStatus={setStatus} />
+                </FilterWrap>
+                <TodosLogo>
+                    <img src={logo} alt="Todo App" width="150" />
+                </TodosLogo>
+            </TodosControlBar>
             <TodosList
                 todos={todos}
                 setTodos={setTodos}

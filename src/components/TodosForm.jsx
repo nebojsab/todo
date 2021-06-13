@@ -14,78 +14,64 @@ const ToDoForm = styled.div`
 `;
 
 const TextInput = styled.input`
-    background-color: #efeeee;
+    background-color: #f1f1f1;
     border: none;
     border-radius: 6px;
-    height: 40px;
+    height: 45px;
     padding: 0 0 0 6px;
     margin: 0 0 35px 0;
     width: 100%;
-    box-shadow: 9px 9px 16px 9px rgba(0, 0, 0, 0.1),
-        -9px -9px 9px 9px rgba(255, 255, 255, 0.5),
-        9px 9px 20px 8px rgba(0, 0, 0, 0) inset,
-        -9px -9px 18px 8px rgba(255, 255, 255, 0) inset;
 `;
 
 const TextArea = styled.textarea`
-    background-color: #efeeee;
+    background-color: #f1f1f1;
     border: none;
     border-radius: 6px;
     height: 140px;
-    padding: 0 0 0 6px;
+    padding: 10px 0 0 6px;
     margin: 0 0 35px 0;
     width: 100%;
-    box-shadow: 9px 9px 16px 9px rgba(0, 0, 0, 0.1),
-        -9px -9px 9px 9px rgba(255, 255, 255, 0.5),
-        9px 9px 20px 8px rgba(0, 0, 0, 0) inset,
-        -9px -9px 18px 8px rgba(255, 255, 255, 0) inset;
 `;
 
 const SelectField = styled.select`
-    background-color: #efeeee;
+    background-color: #f1f1f1;
     border: none;
     border-radius: 6px;
-    height: 40px;
+    height: 45px;
     padding: 0 0 0 6px;
     margin: 0 0 35px 0;
     width: 100%;
-    box-shadow: 9px 9px 16px 9px rgba(0, 0, 0, 0.1),
-        -9px -9px 9px 9px rgba(255, 255, 255, 0.5),
-        9px 9px 20px 8px rgba(0, 0, 0, 0) inset,
-        -9px -9px 18px 8px rgba(255, 255, 255, 0) inset;
 `;
 
 const ButtonPrimary = styled.button`
-    background-color: #3a73a9;
-    color: #fff;
+    background-color: var(--primary-blue);
+    color: var(--white);
     border: none;
     border-radius: 6px;
-    height: 40px;
+    height: 45px;
     padding: 0 20px;
     margin: 0 auto 15px;
     min-width: 200px;
     transition: all ease-in-out 0.2s;
     cursor: pointer;
+    transform: scale(1.01);
+    box-shadow: 0 2px 4px var(--button-primary-blue-shadow);
 
     &:hover {
-        background-color: #9ac7f0;
-        color: #000;
         transition: all ease-in-out 0.2s;
+        box-shadow: 0 2px 2px var(--button-primary-blue-shadow);
+        transform: scale(1);
     }
 `;
 
 const DateField = styled.input`
-    background-color: #efeeee;
+    background-color: #f1f1f1;
     border: none;
     border-radius: 6px;
     height: 40px;
     padding: 0 0 0 6px;
     margin: 0 0 35px 0;
     width: 100%;
-    box-shadow: 9px 9px 16px 9px rgba(0, 0, 0, 0.1),
-        -9px -9px 9px 9px rgba(255, 255, 255, 0.5),
-        9px 9px 20px 8px rgba(0, 0, 0, 0) inset,
-        -9px -9px 18px 8px rgba(255, 255, 255, 0) inset;
 `;
 
 export default function TodosForm({
