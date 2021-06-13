@@ -27,5 +27,9 @@ to start the app on http://localhost:1234
 ToDo application is quite straightforward. Below are steps to run the app:
 
 * To add new `ToDo` click on circular/round button with plus symbol. Modal will be opened. Fill all the fields and click on `Add new todo` button to submit your selection. Modal will be closed and new `ToDo` will be added in to the list.
+><img src="https://imgur.com/Ctrmq9Z" alt="Add ToDo" width="600" />
+><img src="https://imgur.com/undefined" alt="Add ToDo" width="600" />
 * To set `ToDo` complete, click on the `complete todo` circular/round button with check-mark symbol. Item will be styled accordingly. 
+><img src="https://imgur.com/8eNIHjE" alt="Add ToDo" width="600" />
 * To delete `ToDo` click on the `delete todo` circular/round button with `X` symbol. Item will be styled accordingly. 
+><img src="https://imgur.com/m5i4fmA" alt="Add ToDo" width="600" />
