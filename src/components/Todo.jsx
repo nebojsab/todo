@@ -77,8 +77,9 @@ const ButtonComplete = styled.div`
         top: -16px;
     }
 
-@media ${device.laptop} {
-    top: -16px;
+    @media ${device.laptop} {
+        top: -16px;
+    }
 
     &:hover::after {
         content: "Complete Todo";
