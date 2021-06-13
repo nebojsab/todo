@@ -15,6 +15,7 @@ const TodosContainer = styled.div`
     background-color: var(--pale-blue);
     border-radius: 15px;
     margin-top: -15px;
+    box-shadow: var(--box-shadow-default);
 `;
 
 const TodosControlBar = styled.div`
@@ -56,6 +57,35 @@ const ButtonAdd = styled.div`
     position: absolute;
     left: 170px;
     top: -75px;
+
+    &:hover::after {
+        content: "Add new Todo";
+        text-transform: lowercase;
+        position: absolute;
+        color: var(--white);
+        font-size: var(--p3);
+        padding: 6px 12px;
+        background-color: var(--primary-blue);
+        border-radius: 4px;
+        min-width: 120px;
+        text-align: center;
+        left: -35px;
+        top: -35px;
+        transition: all ease-in 0.35s;
+    }
+
+    &:hover::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        display: block;
+        background-color: var(--primary-blue);
+        transform: rotate(45deg);
+        top: -15px;
+        left: 20px;
+        transition: all ease-in 0.35s;
+    }
 `;
 
 export default function Todos({ todos, setTodos }) {

@@ -22,11 +22,21 @@
     --pale-blue: #f1f5f8;
     --dark-text-blue: #517f99;
 
-    --radial-gradient: radial-gradient(
-        91.1% 5020.45% at 99.39% 0%,
-        #99c6ef 0%,
-        #052949 100%
-    );
+    //box shadows
+
+    //default
+    --box-shadow-default: 1px 0px 4px 4px rgba(81, 127, 153, 0.2);
+
+    //expired
+    --box-shadow-expired: 1px 0px 4px 4px rgba(214, 127, 105, 0.2);
+
+    //expiring
+    --box-shadow-expiring: 1px 0px 4px 4px rgba(204, 158, 73, 0.2);
+
+    //complete
+    --box-shadow-complete: 1px 0px 4px 4px rgba(86, 197, 160, 0.2);
+
+    //end box shadows
 
     --button-primary-blue-shadow: rgba(40, 77, 115, 1);
 

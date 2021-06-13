@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
+import Button from "./Button";
 import styled from "styled-components";
+
+import chevronDown from "../assets/images/chevron-down.png";
 
 const categories = ["Interviews", "Travel spots", "Shop lists", "Home notes"];
 
@@ -13,65 +16,137 @@ const ToDoForm = styled.div`
     }
 `;
 
-const TextInput = styled.input`
-    background-color: #f1f1f1;
-    border: none;
-    border-radius: 6px;
-    height: 45px;
-    padding: 0 0 0 6px;
-    margin: 0 0 35px 0;
+const TextInput = styled.div`
+    position: relative;
+    background-color: var(--filter-input-field-bcg);
+    display: flex;
     width: 100%;
-`;
+    height: 50px;
+    border-radius: 10px;
+    z-index: 0;
+    margin-bottom: 36px;
 
-const TextArea = styled.textarea`
-    background-color: #f1f1f1;
-    border: none;
-    border-radius: 6px;
-    height: 140px;
-    padding: 10px 0 0 6px;
-    margin: 0 0 35px 0;
-    width: 100%;
-`;
-
-const SelectField = styled.select`
-    background-color: #f1f1f1;
-    border: none;
-    border-radius: 6px;
-    height: 45px;
-    padding: 0 0 0 6px;
-    margin: 0 0 35px 0;
-    width: 100%;
-`;
-
-const ButtonPrimary = styled.button`
-    background-color: var(--primary-blue);
-    color: var(--white);
-    border: none;
-    border-radius: 6px;
-    height: 45px;
-    padding: 0 20px;
-    margin: 0 auto 15px;
-    min-width: 200px;
-    transition: all ease-in-out 0.2s;
-    cursor: pointer;
-    transform: scale(1.01);
-    box-shadow: 0 2px 4px var(--button-primary-blue-shadow);
-
-    &:hover {
-        transition: all ease-in-out 0.2s;
-        box-shadow: 0 2px 2px var(--button-primary-blue-shadow);
-        transform: scale(1);
+    input[type="text"] {
+        color: var(--dark-text-blue);
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: none;
+        background-color: transparent;
+        padding: 13px;
+        width: 100%;
+        outline: 0;
+        z-index: 1;
     }
 `;
 
-const DateField = styled.input`
-    background-color: #f1f1f1;
-    border: none;
-    border-radius: 6px;
-    height: 40px;
-    padding: 0 0 0 6px;
-    margin: 0 0 35px 0;
+const TextArea = styled.div`
+    position: relative;
+    background-color: var(--filter-input-field-bcg);
+    display: flex;
     width: 100%;
+    height: 150px;
+    border-radius: 10px;
+    z-index: 0;
+    margin-bottom: 36px;
+
+    textarea {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: none;
+        background-color: transparent;
+        padding: 13px;
+        width: 100%;
+        outline: 0;
+        z-index: 1;
+    }
+
+    span {
+        position: absolute;
+        left: 10px;
+        bottom: -25px;
+        font-size: var(--p3);
+        color: var(--text-dark-blue);
+
+        &.is-invalid {
+            color: var(--red);
+        }
+    }
+`;
+
+const SelectField = styled.div`
+    position: relative;
+    background-color: var(--filter-input-field-bcg);
+    display: flex;
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    z-index: 0;
+    margin-bottom: 36px;
+
+    &::after {
+        content: "";
+        background-image: url(${chevronDown});
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 20px;
+        height: 10px;
+        display: block;
+        position: absolute;
+        right: 10px;
+        top: 20px;
+    }
+
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: none;
+        background-color: transparent;
+        padding: 0 0 0 13px;
+        width: 100%;
+        outline: 0;
+        z-index: 1;
+    }
+`;
+
+const ButtonPrimary = styled.div`
+    background-color: transparent;
+    border: none;
+`;
+
+const DateField = styled.div`
+    position: relative;
+    background-color: var(--filter-input-field-bcg);
+    display: flex;
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    z-index: 0;
+    margin-bottom: 36px;
+
+    &::after {
+        content: "";
+        width: 20px;
+        height: 10px;
+        display: block;
+        position: absolute;
+        right: 10px;
+        top: 20px;
+    }
+
+    input {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: none;
+        background-color: transparent;
+        padding: 0 0 0 13px;
+        width: 100%;
+        outline: 0;
+        z-index: 1;
+    }
 `;
 
 export default function TodosForm({
@@ -88,15 +163,23 @@ export default function TodosForm({
     const [textAreaCount, setTextAreaCount] = useState("");
 
     const charCountHandler = (e) => {
+        const textAreaSpan = document.querySelector(".form__textarea span");
         const charLength = e.target.value.length;
         if (charLength > 119) {
             setTextAreaCount("Max 120 characters allowed!");
+            textAreaSpan.classList.add("is-invalid");
         } else if (charLength > 0 && charLength < 119) {
             setTextAreaCount(`${charLength} / 120`);
+            textAreaSpan.classList.remove("is-invalid");
         } else {
             null;
+            textAreaSpan.classList.remove("is-invalid");
         }
+
+        console.log(textAreaCount);
     };
+
+    useEffect(() => {});
 
     useEffect(() => {
         document.getElementById("datePicker").min = new Date(
@@ -109,48 +192,59 @@ export default function TodosForm({
     return (
         <ToDoForm>
             <form onSubmit={handleSubmit}>
-                <TextInput
-                    type="text"
-                    placeholder="ToDo Title"
-                    name={title}
-                    value={title}
-                    onChange={handleTitleOnChange}
-                    required
-                />
-                <TextArea
-                    name={description}
-                    maxLength="120"
-                    value={description}
-                    onChange={handleDescriptionOnChange}
-                    onKeyDown={charCountHandler}
-                    id={description}
-                    required
-                ></TextArea>
-                <span>{textAreaCount}</span>
-                <DateField
-                    type="date"
-                    id="datePicker"
-                    name={date}
-                    value={date}
-                    onChange={handleDateOnChange}
-                    required
-                />
-                <SelectField
-                    required
-                    id="animal"
-                    value={category}
-                    onChange={handleCategoryOnChange}
-                    onBlur={handleCategoryOnChange}
-                >
-                    <option />
-                    {categories.map((cat) => (
-                        <option value={cat} key={cat}>
-                            {cat}
+                <TextInput>
+                    <input
+                        type="text"
+                        placeholder="ToDo title..."
+                        name={title}
+                        value={title}
+                        onChange={handleTitleOnChange}
+                        required
+                    />
+                </TextInput>
+                <TextArea className="form__textarea">
+                    <textarea
+                        name={description}
+                        placeholder="ToDo description..."
+                        maxLength="120"
+                        value={description}
+                        onChange={handleDescriptionOnChange}
+                        onKeyDown={charCountHandler}
+                        id={description}
+                        required
+                    />
+                    <span>{textAreaCount}</span>
+                </TextArea>
+                <DateField>
+                    <input
+                        type="date"
+                        id="datePicker"
+                        name={date}
+                        value={date}
+                        onChange={handleDateOnChange}
+                        required
+                    />
+                </DateField>
+                <SelectField>
+                    <select
+                        required
+                        id="animal"
+                        value={category}
+                        onChange={handleCategoryOnChange}
+                        onBlur={handleCategoryOnChange}
+                    >
+                        <option value="" disabled>
+                            Select category
                         </option>
-                    ))}
+                        {categories.map((cat) => (
+                            <option value={cat} key={cat}>
+                                {cat}
+                            </option>
+                        ))}
+                    </select>
                 </SelectField>
                 <ButtonPrimary type="submit" value="Add new ToDo">
-                    Add new ToDo
+                    <Button>Add new ToDo</Button>
                 </ButtonPrimary>
             </form>
         </ToDoForm>

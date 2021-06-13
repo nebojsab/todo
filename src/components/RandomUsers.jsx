@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
-import johnDoe from "../assets/images/profile-pics/john-doe.png";
-import maryPoppins from "../assets/images/profile-pics/mary-poppins.png";
 import jasonSmith from "../assets/images/profile-pics/jason-smith.png";
 import connieAustin from "../assets/images/profile-pics/connie-austin.png";
 
@@ -12,8 +10,17 @@ const UserBar = styled.div`
     justify-content: space-between;
     height: 110px;
     border-radius: 15px 15px 0 0;
-    background: var(--header-background-blue);
+    /* background: var(--header-background-blue); */
+    background: rgb(153, 198, 239);
+    background: linear-gradient(
+        207deg,
+        rgba(153, 198, 239, 1) 0%,
+        rgba(81, 127, 153, 1) 38%,
+        rgba(0, 17, 27, 1) 100%
+    );
     padding: 0 35px;
+    width: 96%;
+    margin: auto;
 `;
 
 const UserImage = styled.div`
@@ -30,14 +37,6 @@ const UserName = styled.h2`
 
 export default function RandomUsers() {
     const users = [
-        {
-            name: "John Doe",
-            src: johnDoe,
-        },
-        {
-            name: "Mary Poppins",
-            src: maryPoppins,
-        },
         {
             name: "Jason Smith",
             src: jasonSmith,

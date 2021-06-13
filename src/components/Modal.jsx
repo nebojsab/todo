@@ -1,5 +1,6 @@
 import React from "react";
 import TodosForm from "./TodosForm";
+import Button from "./Button";
 import styled from "styled-components";
 
 const ModalContent = styled.div`
@@ -8,10 +9,10 @@ const ModalContent = styled.div`
     border-radius: 15px;
     z-index: 999;
     width: 100%;
-    max-width: 600px;
-    left: calc(50% - 300px);
-    top: 150px;
-    padding: 48px 96px;
+    max-width: 480px;
+    left: calc(50% - 240px);
+    top: 100px;
+    padding: 48px;
     position: absolute;
 `;
 
@@ -25,45 +26,10 @@ const ModalOverlay = styled.div`
     background-color: rgba(255, 255, 255, 0.91);
 `;
 
-const ButtonClose = styled.button`
+const ButtonClose = styled.div`
     position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    background-color: var(--primary-blue);
     top: 1rem;
     right: 1rem;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    cursor: pointer;
-    transform: scale(1.01);
-    box-shadow: 0 2px 4px var(--button-primary-blue-shadow);
-
-    &:hover {
-        transition: all ease-in-out 0.2s;
-        box-shadow: 0 2px 2px var(--button-primary-blue-shadow);
-        transform: scale(1);
-    }
-
-    &::after {
-        position: absolute;
-        content: "";
-        width: 12px;
-        height: 2px;
-        background: var(--white);
-        transform: rotate(45deg);
-    }
-
-    &::before {
-        position: absolute;
-        content: "";
-        width: 12px;
-        height: 2px;
-        background: var(--white);
-        transform: rotate(-45deg);
-    }
 `;
 
 export default function Modal({
@@ -94,7 +60,9 @@ export default function Modal({
                     date={date}
                     category={category}
                 />
-                <ButtonClose onClick={toggleModal}></ButtonClose>
+                <ButtonClose>
+                    <Button onClick={toggleModal} type="closeButton"></Button>
+                </ButtonClose>
             </ModalContent>
             <ModalOverlay />
         </div>

@@ -12,21 +12,22 @@ const ButtonDelete = styled.div`
     background: none;
     border: none;
     z-index: 10;
+    transition: all ease-in 0.35s;
 
     &:hover::after {
         content: "Delete Todo";
         text-transform: lowercase;
         position: absolute;
-        color: var(--white);
+        color: var(--red);
         font-size: var(--p3);
         padding: 6px 12px;
-        background-color: var(--red);
+        background-color: var(--expired);
         border-radius: 4px;
-        transition: ease-in 0.2s;
         min-width: 120px;
         text-align: center;
         left: -50px;
         top: -35px;
+        transition: all ease-in 0.35s;
     }
 
     &:hover::before {
@@ -35,10 +36,11 @@ const ButtonDelete = styled.div`
         height: 10px;
         position: absolute;
         display: block;
-        background-color: var(--red);
+        background-color: var(--expired);
         transform: rotate(45deg);
         top: -15px;
         left: 7px;
+        transition: all ease-in 0.35s;
     }
 `;
 
@@ -52,6 +54,7 @@ const ButtonComplete = styled.div`
     background: none;
     border: none;
     z-index: 10;
+    transition: all ease-in 0.35s;
 
     &:hover::after {
         content: "Complete Todo";
@@ -62,11 +65,11 @@ const ButtonComplete = styled.div`
         padding: 6px 12px;
         background-color: var(--green);
         border-radius: 4px;
-        transition: ease-in 0.2s;
         min-width: 120px;
         text-align: center;
         left: -50px;
         top: -35px;
+        transition: all ease-in 0.35s;
     }
 
     &:hover::before {
@@ -79,6 +82,7 @@ const ButtonComplete = styled.div`
         transform: rotate(45deg);
         top: -15px;
         left: 7px;
+        transition: all ease-in 0.35s;
     }
 `;
 
@@ -111,11 +115,34 @@ const TodosDescription = styled.div`
 `;
 
 const TodosTopRow = styled.div`
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     width: 100%;
     height: 60px;
+
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-top: 2px solid var(--dark-text-blue);
+        border-right: 2px solid var(--dark-text-blue);
+        transform: rotate(45deg);
+        left: -35px;
+        transition: all ease-in 0.2s;
+    }
+`;
+
+const TodosTitle = styled.h2`
+    font-size: var(--p2);
+    font-weight: bold;
+    margin: 0;
+    text-transform: uppercase;
+    color: var(--dark-text-blue);
+    width: 300px;
 `;
 
 const TodosItem = styled.div`
@@ -129,6 +156,7 @@ const TodosItem = styled.div`
     align-items: flex-start;
     justify-content: center;
     background: var(--white);
+    box-shadow: var(--box-shadow-default);
     z-index: 1;
 
     &.is-hovered ${TodosDescription} {
@@ -137,8 +165,16 @@ const TodosItem = styled.div`
         transition: all ease-in 0.35s;
     }
 
+    &.is-hovered ${TodosTopRow} {
+        &::before {
+            transform: rotate(135deg);
+            transition: all ease-in 0.2s;
+        }
+    }
+
     &.is-expired {
         border: 2px solid var(--expired);
+        box-shadow: var(--box-shadow-expired);
 
         &::after {
             content: "expired";
@@ -158,6 +194,7 @@ const TodosItem = styled.div`
 
     &.is-expiring {
         border: 2px solid var(--orange);
+        box-shadow: var(--box-shadow-expiring);
 
         &::after {
             content: "expiring";
@@ -177,6 +214,11 @@ const TodosItem = styled.div`
 
     &.is-complete {
         border: 2px solid var(--green);
+        box-shadow: var(--box-shadow-complete);
+
+        ${TodosTopRow} {
+            text-decoration: line-through;
+        }
 
         &::after {
             content: "complete";
@@ -193,15 +235,6 @@ const TodosItem = styled.div`
             text-align: center;
         }
     }
-`;
-
-const TodosTitle = styled.h2`
-    font-size: var(--p2);
-    font-weight: bold;
-    margin: 0;
-    text-transform: uppercase;
-    color: var(--dark-text-blue);
-    width: 300px;
 `;
 
 const TodosDueDate = styled.div`

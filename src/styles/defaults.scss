@@ -8,3 +8,24 @@ body {
     font-weight: var(--base-font-weight);
     background-color: var(--body-background);
 }
+
+input[type="text"],
+input[type="date"],
+textarea,
+select,
+option {
+    color: var(--dark-text-blue);
+}
+
+::-webkit-input-placeholder {
+    color: var(--dark-text-blue);
+}
+::-moz-placeholder {
+    color: var(--dark-text-blue);
+}
+:-ms-input-placeholder {
+    color: var(--dark-text-blue);
+}
+:-moz-placeholder {
+    color: var(--dark-text-blue);
+}
