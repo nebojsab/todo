@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "./Button";
+import { device } from "../helpers/breakpoints";
 import styled from "styled-components";
 
 const ButtonDelete = styled.div`
@@ -13,6 +14,18 @@ const ButtonDelete = styled.div`
     border: none;
     z-index: 10;
     transition: all ease-in 0.35s;
+
+    @media ${device.mobile} {
+        top: -16px;
+    }
+
+    @media ${device.tablet} {
+        top: -16px;
+    }
+
+    @media ${device.laptop} {
+        top: -16px;
+    }
 
     &:hover::after {
         content: "Delete Todo";
@@ -55,6 +68,17 @@ const ButtonComplete = styled.div`
     border: none;
     z-index: 10;
     transition: all ease-in 0.35s;
+
+    @media ${device.mobile} {
+        top: -16px;
+    }
+
+    @media ${device.tablet} {
+        top: -16px;
+    }
+
+@media ${device.laptop} {
+    top: -16px;
 
     &:hover::after {
         content: "Complete Todo";
@@ -102,6 +126,10 @@ const TodosDescription = styled.div`
     transition: all ease-in 0.35s;
     padding-left: 15px;
 
+    @media ${device.mobile} {
+        margin: 15px 15px 0 0;
+    }
+
     &::before {
         position: absolute;
         left: 0;
@@ -122,6 +150,13 @@ const TodosTopRow = styled.div`
     width: 100%;
     height: 60px;
 
+    @media ${device.mobile} {
+        height: 100px;
+        flex-direction: column;
+        justify-content: flex-start;
+        text-align: left;
+    }
+
     &::before {
         content: "";
         display: block;
@@ -133,16 +168,37 @@ const TodosTopRow = styled.div`
         transform: rotate(45deg);
         left: -35px;
         transition: all ease-in 0.2s;
+
+        @media ${device.mobile} {
+            top: 45px;
+        }
     }
 `;
 
 const TodosTitle = styled.h2`
     font-size: var(--p2);
     font-weight: bold;
-    margin: 0;
+    margin: 0 40px 0 0;
     text-transform: uppercase;
     color: var(--dark-text-blue);
     width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @media ${device.mobile} {
+        width: unset;
+        white-space: unset;
+        overflow: unset;
+        word-break: break-all;
+        align-self: flex-start;
+        line-height: 1rem;
+        margin: 12px 0 12px 0;
+    }
+
+    @media ${device.tablet} {
+        width: 170px;
+    }
 `;
 
 const TodosItem = styled.div`
@@ -156,8 +212,12 @@ const TodosItem = styled.div`
     align-items: flex-start;
     justify-content: center;
     background: var(--white);
-    box-shadow: var(--box-shadow-default);
     z-index: 1;
+    cursor: pointer;
+
+    @media ${device.mobile} {
+        margin: 24px 0;
+    }
 
     &.is-hovered ${TodosDescription} {
         height: auto;
@@ -173,14 +233,11 @@ const TodosItem = styled.div`
     }
 
     &.is-expired {
-        border: 2px solid var(--expired);
-        box-shadow: var(--box-shadow-expired);
-
         &::after {
             content: "expired";
             position: absolute;
             right: 13px;
-            top: -18px;
+            top: -20px;
             min-width: 90px;
             font-size: var(--p3);
             text-transform: lowercase;
@@ -189,18 +246,30 @@ const TodosItem = styled.div`
             background-color: var(--expired);
             color: var(--red);
             text-align: center;
+
+            @media ${device.mobile} {
+                right: unset;
+                left: 13px;
+            }
+
+            @media ${device.tablet} {
+                right: unset;
+                left: 13px;
+            }
+
+            @media ${device.laptop} {
+                right: unset;
+                left: 13px;
+            }
         }
     }
 
     &.is-expiring {
-        border: 2px solid var(--orange);
-        box-shadow: var(--box-shadow-expiring);
-
         &::after {
             content: "expiring";
             position: absolute;
             right: 13px;
-            top: -18px;
+            top: -20px;
             min-width: 90px;
             font-size: var(--p3);
             text-transform: lowercase;
@@ -209,13 +278,25 @@ const TodosItem = styled.div`
             background-color: var(--orange);
             color: var(--red);
             text-align: center;
+
+            @media ${device.mobile} {
+                right: unset;
+                left: 13px;
+            }
+
+            @media ${device.tablet} {
+                right: unset;
+                left: 13px;
+            }
+
+            @media ${device.laptop} {
+                right: unset;
+                left: 13px;
+            }
         }
     }
 
     &.is-complete {
-        border: 2px solid var(--green);
-        box-shadow: var(--box-shadow-complete);
-
         ${TodosTopRow} {
             text-decoration: line-through;
         }
@@ -224,7 +305,7 @@ const TodosItem = styled.div`
             content: "complete";
             position: absolute;
             right: 13px;
-            top: -18px;
+            top: -20px;
             min-width: 90px;
             font-size: var(--p3);
             text-transform: lowercase;
@@ -233,6 +314,21 @@ const TodosItem = styled.div`
             background-color: var(--green);
             color: var(--white);
             text-align: center;
+
+            @media ${device.mobile} {
+                right: unset;
+                left: 13px;
+            }
+
+            @media ${device.tablet} {
+                right: unset;
+                left: 13px;
+            }
+
+            @media ${device.laptop} {
+                right: unset;
+                left: 13px;
+            }
         }
     }
 `;
@@ -243,12 +339,26 @@ const TodosDueDate = styled.div`
     font-weight: normal;
     color: var(--dark-text-blue);
     width: 300px;
+
+    @media ${device.mobile} {
+        width: 100%;
+        line-height: 1.5rem;
+    }
+
+    @media ${device.tablet} {
+        width: 180px;
+    }
 `;
 
 const TodosCat = styled.div`
     font-size: var(--p2);
     font-weight: 500;
     color: var(--dark-text-blue);
+
+    @media ${device.mobile} {
+        width: 100%;
+        line-height: 1.5rem;
+    }
 `;
 
 export default function Todo({ todos, todo, setTodos }) {

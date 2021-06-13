@@ -1,6 +1,7 @@
 import React from "react";
 import TodosForm from "./TodosForm";
 import Button from "./Button";
+import { device } from "../helpers/breakpoints";
 import styled from "styled-components";
 
 const ModalContent = styled.div`
@@ -14,6 +15,13 @@ const ModalContent = styled.div`
     top: 100px;
     padding: 48px;
     position: absolute;
+
+    @media ${device.mobile} {
+        max-width: unset;
+        left: calc(50% - 170px);
+        width: 340px;
+        padding: 0;
+    }
 `;
 
 const ModalOverlay = styled.div`

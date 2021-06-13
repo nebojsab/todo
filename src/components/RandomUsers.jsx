@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import { device } from "../helpers/breakpoints";
 
 import jasonSmith from "../assets/images/profile-pics/jason-smith.png";
 import connieAustin from "../assets/images/profile-pics/connie-austin.png";
@@ -10,14 +11,7 @@ const UserBar = styled.div`
     justify-content: space-between;
     height: 110px;
     border-radius: 15px 15px 0 0;
-    /* background: var(--header-background-blue); */
-    background: rgb(153, 198, 239);
-    background: linear-gradient(
-        207deg,
-        rgba(153, 198, 239, 1) 0%,
-        rgba(81, 127, 153, 1) 38%,
-        rgba(0, 17, 27, 1) 100%
-    );
+    background: var(--header-gradient);
     padding: 0 35px;
     width: 96%;
     margin: auto;
@@ -25,14 +19,26 @@ const UserBar = styled.div`
 
 const UserImage = styled.div`
     margin-top: -52px;
+
+    @media ${device.mobile} {
+        margin-top: -18px;
+        img {
+            width: 120px;
+            height: auto;
+        }
+    }
 `;
 
 const UserName = styled.h2`
     font-family: var(--heading-font-family);
     font-size: var(--h2);
     font-weight: 100;
-    color: var(--white);
+    color: var(--black);
     margin-top: -15px;
+
+    @media ${device.mobile} {
+        font-size: var(--h3);
+    }
 `;
 
 export default function RandomUsers() {

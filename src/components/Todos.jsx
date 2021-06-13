@@ -4,7 +4,7 @@ import TodosList from "./TodosList";
 import TodosFilter from "./TodosFilter";
 import Modal from "./Modal";
 import Button from "./Button";
-
+import { device } from "../helpers/breakpoints";
 import logo from "../assets/images/todo-logo.png";
 
 const TodosContainer = styled.div`
@@ -15,27 +15,83 @@ const TodosContainer = styled.div`
     background-color: var(--pale-blue);
     border-radius: 15px;
     margin-top: -15px;
-    box-shadow: var(--box-shadow-default);
 `;
 
 const TodosControlBar = styled.div`
     display: flex;
     justify-content: space-between;
-    margin: 15px 0 30px;
+    margin: 15px 0;
     position: relative;
+
+    @media ${device.mobile} {
+        flex-direction: column-reverse;
+    }
+
+    @media ${device.tablet} {
+        flex-direction: column-reverse;
+    }
+
+    @media ${device.laptop} {
+        flex-direction: column-reverse;
+    }
 `;
 
-const TodosLogo = styled.div``;
+const TodosLogo = styled.div`
+    @media ${device.mobile} {
+        position: relative;
+        margin-bottom: 24px;
+        text-align: center;
+    }
+
+    @media ${device.tablet} {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    @media ${device.laptop} {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+`;
 
 const FilterWrap = styled.div`
     display: flex;
     align-items: center;
     max-width: 500px;
 
+    @media ${device.mobile} {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    @media ${device.tablet} {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    @media ${device.laptop} {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
     span {
         font-size: var(--p2);
         color: var(--dark-text-blue);
         margin-right: 10px;
+
+        @media ${device.mobile} {
+            margin-bottom: 6px;
+        }
+
+        @media ${device.tablet} {
+            margin-bottom: 6px;
+        }
+
+        @media ${device.laptop} {
+            margin-bottom: 6px;
+        }
     }
 `;
 
@@ -51,12 +107,36 @@ const CurrentDateAndTime = styled.div`
     border-radius: 10px;
     box-shadow: 0 1px 4px var(--secondary-button-color);
     height: 50px;
+
+    @media ${device.mobile} {
+        max-width: fit-content;
+        margin: 0 auto 24px;
+    }
+
+    @media ${device.tablet} {
+        max-width: fit-content;
+        margin-bottom: 24px;
+    }
+
+    @media ${device.laptop} {
+        max-width: fit-content;
+        margin-bottom: 24px;
+    }
 `;
 
 const ButtonAdd = styled.div`
     position: absolute;
     left: 170px;
     top: -75px;
+
+    @media ${device.mobile} {
+        position: fixed;
+        right: 30px;
+        bottom: 30px;
+        z-index: 10;
+        left: unset;
+        top: unset;
+    }
 
     &:hover::after {
         content: "Add new Todo";
@@ -210,10 +290,6 @@ export default function Todos({ todos, setTodos }) {
     return (
         <TodosContainer>
             <TodosControlBar>
-                <CurrentDateAndTime>
-                    {dateVal.toLocaleDateString()} —{" "}
-                    {dateVal.toLocaleTimeString()}
-                </CurrentDateAndTime>
                 <ButtonAdd>
                     <Button type="addButton" onClick={toggleModal}></Button>
                 </ButtonAdd>
@@ -221,6 +297,10 @@ export default function Todos({ todos, setTodos }) {
                     <span>filter by status or by category</span>
                     <TodosFilter todos={todos} setStatus={setStatus} />
                 </FilterWrap>
+                <CurrentDateAndTime>
+                    {dateVal.toLocaleDateString()} —{" "}
+                    {dateVal.toLocaleTimeString()}
+                </CurrentDateAndTime>
                 <TodosLogo>
                     <img src={logo} alt="Todo App" width="150" />
                 </TodosLogo>

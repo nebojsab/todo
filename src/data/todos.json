@@ -4,7 +4,7 @@
         "complete": false,
         "expired": false,
         "expiring": false,
-        "title": "Name one",
+        "title": "A bit longer name to test some ellipsis",
         "description": "Nostrud excepteur tempor laborum occaecat mollit Lorem anim pariatur in nulla.",
         "date": "2021-07-03",
         "category": "Interviews"
