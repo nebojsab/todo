@@ -3,11 +3,15 @@ import Button from "./Button";
 import { device } from "../helpers/breakpoints";
 import styled from "styled-components";
 
+import interviewIco from "../assets/images/todo-interview.png";
+import travelIco from "../assets/images/todo-travel.png";
+import shopIco from "../assets/images/todo-shop.png";
+import houseIco from "../assets/images/todo-house.png";
+
 const ButtonDelete = styled.div`
     position: absolute;
     right: 20px;
-    top: 16px;
-    color: #333;
+    top: 42px;
     font-size: var(--p2);
     text-transform: uppercase;
     background: none;
@@ -16,25 +20,25 @@ const ButtonDelete = styled.div`
     transition: all ease-in 0.35s;
 
     @media ${device.mobile} {
-        top: -16px;
+        top: -12px;
     }
 
     @media ${device.tablet} {
-        top: -16px;
+        top: -12px;
     }
 
     @media ${device.laptop} {
-        top: -16px;
+        top: -12px;
     }
 
     &:hover::after {
         content: "Delete Todo";
         text-transform: lowercase;
         position: absolute;
-        color: var(--red);
+        color: var(--white);
         font-size: var(--p3);
         padding: 6px 12px;
-        background-color: var(--expired);
+        background: var(--expired-box-gradient);
         border-radius: 4px;
         min-width: 120px;
         text-align: center;
@@ -49,7 +53,7 @@ const ButtonDelete = styled.div`
         height: 10px;
         position: absolute;
         display: block;
-        background-color: var(--expired);
+        background: var(--expired-box-gradient);
         transform: rotate(45deg);
         top: -15px;
         left: 7px;
@@ -60,8 +64,7 @@ const ButtonDelete = styled.div`
 const ButtonComplete = styled.div`
     position: absolute;
     right: 70px;
-    top: 16px;
-    color: #333;
+    top: 42px;
     font-size: var(--p2);
     text-transform: uppercase;
     background: none;
@@ -70,15 +73,15 @@ const ButtonComplete = styled.div`
     transition: all ease-in 0.35s;
 
     @media ${device.mobile} {
-        top: -16px;
+        top: -12px;
     }
 
     @media ${device.tablet} {
-        top: -16px;
+        top: -12px;
     }
 
     @media ${device.laptop} {
-        top: -16px;
+        top: -12px;
     }
 
     &:hover::after {
@@ -88,7 +91,7 @@ const ButtonComplete = styled.div`
         color: var(--white);
         font-size: var(--p3);
         padding: 6px 12px;
-        background-color: var(--green);
+        background: var(--completed-box-gradient);
         border-radius: 4px;
         min-width: 120px;
         text-align: center;
@@ -103,7 +106,7 @@ const ButtonComplete = styled.div`
         height: 10px;
         position: absolute;
         display: block;
-        background-color: var(--green);
+        background: var(--completed-box-gradient);
         transform: rotate(45deg);
         top: -15px;
         left: 7px;
@@ -139,7 +142,7 @@ const TodosDescription = styled.div`
         display: block;
         width: 5px;
         height: 100px;
-        background-color: var(--secondary-button-color);
+        background-color: var(--blue);
     }
 `;
 
@@ -149,10 +152,10 @@ const TodosTopRow = styled.div`
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    height: 60px;
+    height: 100px;
 
     @media ${device.mobile} {
-        height: 100px;
+        height: 110px;
         flex-direction: column;
         justify-content: flex-start;
         text-align: left;
@@ -164,37 +167,36 @@ const TodosTopRow = styled.div`
         position: absolute;
         width: 12px;
         height: 12px;
-        border-top: 2px solid var(--dark-text-blue);
-        border-right: 2px solid var(--dark-text-blue);
+        border-top: 1px solid var(--gray);
+        border-right: 1px solid var(--gray);
         transform: rotate(45deg);
         left: -35px;
         transition: all ease-in 0.2s;
 
         @media ${device.mobile} {
-            top: 45px;
+            top: 55px;
         }
     }
 `;
 
-const TodosTitle = styled.h2`
-    font-size: var(--p2);
-    font-weight: bold;
+const TodosTitle = styled.div`
+    font-size: var(--h4);
+    font-family: var(--heading-font-family);
+    font-weight: 600;
     margin: 0 40px 0 0;
-    text-transform: uppercase;
-    color: var(--dark-text-blue);
     width: 300px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 
     @media ${device.mobile} {
-        width: unset;
+        width: 80%;
         white-space: unset;
         overflow: unset;
-        word-break: break-all;
+        word-break: break-word;
         align-self: flex-start;
         line-height: 1rem;
-        margin: 12px 0 12px 0;
+        margin: 14px 0 12px 0;
     }
 
     @media ${device.tablet} {
@@ -202,19 +204,82 @@ const TodosTitle = styled.h2`
     }
 `;
 
+const TodosDueDate = styled.div`
+    font-size: var(--p2);
+    color: var(--gray);
+    font-weight: 400;
+    width: 300px;
+
+    span.expired__due-date {
+        color: var(--expired);
+    }
+
+    span.expiring__due-date {
+        color: var(--expiring);
+    }
+
+    @media ${device.mobile} {
+        width: 100%;
+        line-height: 1.5rem;
+    }
+
+    @media ${device.tablet} {
+        width: 180px;
+    }
+`;
+
+const TodosCat = styled.div`
+    font-size: var(--p2);
+    color: var(--gray);
+    font-weight: 400;
+
+    @media ${device.mobile} {
+        width: 100%;
+        line-height: 1.5rem;
+    }
+`;
+
 const TodosItem = styled.div`
-    margin: 14px 0;
+    margin: 10px 0;
     padding: 0 10px 0 50px;
     border: 2px solid transparent;
-    border-radius: 10px;
+    border-radius: 15px;
     display: flex;
     overflow: hidden;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    background: var(--white);
+    background: var(--el-bcg);
     z-index: 1;
     cursor: pointer;
+
+    &.is-interview-cat {
+        background-image: url(${interviewIco});
+        background-repeat: no-repeat;
+        background-size: 140px;
+        background-position: right -20px bottom -30px;
+    }
+
+    &.is-travel-cat {
+        background-image: url(${travelIco});
+        background-repeat: no-repeat;
+        background-size: 140px;
+        background-position: right -20px bottom -30px;
+    }
+
+    &.is-shop-cat {
+        background-image: url(${shopIco});
+        background-repeat: no-repeat;
+        background-size: 140px;
+        background-position: right -20px bottom -30px;
+    }
+
+    &.is-home-cat {
+        background-image: url(${houseIco});
+        background-repeat: no-repeat;
+        background-size: 140px;
+        background-position: right -20px bottom -30px;
+    }
 
     @media ${device.mobile} {
         margin: 24px 0;
@@ -234,33 +299,33 @@ const TodosItem = styled.div`
     }
 
     &.is-expired {
+        overflow: hidden;
+        background-image: ;
         &::after {
             content: "expired";
             position: absolute;
-            right: 13px;
-            top: -20px;
-            min-width: 90px;
+            right: unset;
+            left: -54px;
+            height: 40px;
+            -webkit-transform: rotate(-90deg);
+            -ms-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+            top: 32px;
+            min-width: 104px;
+            z-index: -1;
             font-size: var(--p3);
             text-transform: lowercase;
             padding: 3px 6px;
-            border-radius: 5px 5px 0 0;
-            background-color: var(--expired);
-            color: var(--red);
+            border-radius: 15px 15px 0 0;
+            background: var(--expired-box-gradient);
+            color: var(--white);
             text-align: center;
 
             @media ${device.mobile} {
-                right: unset;
-                left: 13px;
-            }
-
-            @media ${device.tablet} {
-                right: unset;
-                left: 13px;
-            }
-
-            @media ${device.laptop} {
-                right: unset;
-                left: 13px;
+                left: -67px;
+                height: 40px;
+                top: 45px;
+                min-width: 128px;
             }
         }
     }
@@ -269,30 +334,28 @@ const TodosItem = styled.div`
         &::after {
             content: "expiring";
             position: absolute;
-            right: 13px;
-            top: -20px;
-            min-width: 90px;
+            right: unset;
+            left: -54px;
+            height: 40px;
+            -webkit-transform: rotate(-90deg);
+            -ms-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+            top: 32px;
+            min-width: 104px;
+            z-index: -1;
             font-size: var(--p3);
             text-transform: lowercase;
             padding: 3px 6px;
-            border-radius: 5px 5px 0 0;
-            background-color: var(--orange);
-            color: var(--red);
+            border-radius: 15px 15px 0 0;
+            background: var(--expiring-box-gradient);
+            color: var(--white);
             text-align: center;
 
             @media ${device.mobile} {
-                right: unset;
-                left: 13px;
-            }
-
-            @media ${device.tablet} {
-                right: unset;
-                left: 13px;
-            }
-
-            @media ${device.laptop} {
-                right: unset;
-                left: 13px;
+                left: -67px;
+                height: 40px;
+                top: 45px;
+                min-width: 128px;
             }
         }
     }
@@ -302,63 +365,40 @@ const TodosItem = styled.div`
             text-decoration: line-through;
         }
 
+        ${TodosTitle},
+        ${TodosDueDate},
+        ${TodosCat},
+        ${TodosDescription} {
+            opacity: 0.3;
+        }
+
         &::after {
-            content: "complete";
+            content: "completed";
             position: absolute;
-            right: 13px;
-            top: -20px;
-            min-width: 90px;
+            right: unset;
+            left: -54px;
+            height: 40px;
+            -webkit-transform: rotate(-90deg);
+            -ms-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+            top: 32px;
+            min-width: 104px;
+            z-index: -1;
             font-size: var(--p3);
             text-transform: lowercase;
             padding: 3px 6px;
-            border-radius: 5px 5px 0 0;
-            background-color: var(--green);
+            border-radius: 15px 15px 0 0;
+            background: var(--completed-box-gradient);
             color: var(--white);
             text-align: center;
 
             @media ${device.mobile} {
-                right: unset;
-                left: 13px;
-            }
-
-            @media ${device.tablet} {
-                right: unset;
-                left: 13px;
-            }
-
-            @media ${device.laptop} {
-                right: unset;
-                left: 13px;
+                left: -67px;
+                height: 40px;
+                top: 45px;
+                min-width: 128px;
             }
         }
-    }
-`;
-
-const TodosDueDate = styled.div`
-    font-weight: 500;
-    font-size: 1rem;
-    font-weight: normal;
-    color: var(--dark-text-blue);
-    width: 300px;
-
-    @media ${device.mobile} {
-        width: 100%;
-        line-height: 1.5rem;
-    }
-
-    @media ${device.tablet} {
-        width: 180px;
-    }
-`;
-
-const TodosCat = styled.div`
-    font-size: var(--p2);
-    font-weight: 500;
-    color: var(--dark-text-blue);
-
-    @media ${device.mobile} {
-        width: 100%;
-        line-height: 1.5rem;
     }
 `;
 
@@ -437,17 +477,26 @@ export default function Todo({ todos, todo, setTodos }) {
                     ${todo.expired ? "is-expired" : ""}
                     ${todo.expiring ? "is-expiring" : ""}
                     ${todo.complete ? "is-complete" : ""}
+                    ${todo.category === "Interviews" ? "is-interview-cat" : ""}
+                    ${todo.category === "Travel spots" ? "is-travel-cat" : ""}
+                    ${todo.category === "Shop lists" ? "is-shop-cat" : ""}
+                    ${todo.category === "Home notes" ? "is-home-cat" : ""}
                 `}
                 onClick={toggleHover}
             >
                 <TodosTopRow>
                     <TodosTitle>{todo.title}</TodosTitle>
                     <TodosDueDate>
-                        <b>Due date: </b> <span>{todo.date}</span>
+                        Due date:{" "}
+                        <span
+                            className={`${
+                                todo.expired ? "expired__due-date" : ""
+                            } ${todo.expiring ? "expiring__due-date" : ""}`}
+                        >
+                            {todo.date}
+                        </span>
                     </TodosDueDate>
-                    <TodosCat>
-                        <b>Category: </b> {todo.category}
-                    </TodosCat>
+                    <TodosCat>Category: {todo.category}</TodosCat>
                 </TodosTopRow>
                 <TodosDescription>{todo.description}</TodosDescription>
             </TodosItem>

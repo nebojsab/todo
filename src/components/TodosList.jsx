@@ -14,7 +14,7 @@ const Todos = styled.div`
 export default function TodosList({ todos, setTodos, filterTodos }) {
     const listTransitions = useTransition(filterTodos, {
         config: config.gentle,
-        from: { opacity: 0, transform: "translate3d(-25%, 0px, 0px)" },
+        from: { opacity: 0, transform: "translate3d(-5%, 0px, 0px)" },
         enter: { opacity: 1, transform: "translate3d(0%, 0px, 0px)" },
         leave: {
             opacity: 0,

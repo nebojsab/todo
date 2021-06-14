@@ -17,8 +17,10 @@ const ModalContent = styled.div`
     position: absolute;
 
     @media ${device.mobile} {
+        position: fixed;
         max-width: unset;
         left: calc(50% - 170px);
+        top: 50px;
         width: 340px;
         padding: 0;
     }
@@ -38,6 +40,11 @@ const ButtonClose = styled.div`
     position: absolute;
     top: 1rem;
     right: 1rem;
+
+    @media ${device.mobile} {
+        top: 0.5rem;
+        right: 0.5rem;
+    }
 `;
 
 export default function Modal({

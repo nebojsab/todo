@@ -5,7 +5,7 @@ import chevronDown from "../assets/images/chevron-down.png";
 
 const TodosFilterWrap = styled.div`
     position: relative;
-    background-color: var(--filter-input-field-bcg);
+    background-color: var(--el-bcg);
     display: flex;
     width: 250px;
     height: 50px;

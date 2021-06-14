@@ -15,46 +15,42 @@
     --h3: 1.5rem;
 
     //colors
-    --primary-blue: #99c6ef;
-    --secondary-blue: #3d72a7;
-    --ternary-blue: #284d73;
-    --header-background-blue: #517f99;
-    --pale-blue: #f1f5f8;
-    --dark-text-blue: #517f99;
+    --blue: #99c6ef;
+    --blue-02: #3d72a7;
+    --blue-03: #284d73;
+    --blue-04: #517f99;
+    --blue-05: #f1f5f8;
+    --blue-06: #517f99;
 
-    //box shadows
+    //box gradients
 
     //default
-    --box-shadow-default: 1px 0px 4px 4px rgba(81, 127, 153, 0.2);
+    --default-box-gradient: linear-gradient(90deg, #2170a2 0%, #85cbfa 100%);
 
     //expired
-    --box-shadow-expired: 1px 0px 4px 4px rgba(214, 127, 105, 0.2);
+    --expired-box-gradient: linear-gradient(90deg, #eb3349 0%, #e99081 58.85%);
 
     //expiring
-    --box-shadow-expiring: 1px 0px 4px 4px rgba(204, 158, 73, 0.2);
+    --expiring-box-gradient: linear-gradient(90deg, #e65c00 0%, #f9d423 100%);
 
     //complete
-    --box-shadow-complete: 1px 0px 4px 4px rgba(86, 197, 160, 0.2);
+    --completed-box-gradient: linear-gradient(
+        90deg,
+        #4cb8c4 0%,
+        #2bd9ad 57.81%
+    );
 
-    //end box shadows
+    //end box gradients
 
-    --button-primary-blue-shadow: rgba(40, 77, 115, 1);
-
-    --todo-item: #87a6c6;
-    --expired: #cea09d;
-    --expiring: #c7c193;
-    --complete: #87bac6;
-    --red: #a75757;
-    --orange: #e7a37f;
+    --expired: #cc655f;
+    --expiring: #f1c752;
+    --complete: #64deb1;
     --green: #6cb69d;
+    --light-gray: #adadad;
+    --gray: #9a9a9a;
 
     --white: #fff;
+    --dirty-white: #fbfbfb;
     --black: #000;
-    --light-blue-text: #eef6fe;
-    --secondary-button-bcg: #fff0e9;
-    --secondary-button-color: #fa874a;
-    --filter-input-field-bcg: #e6edf3;
-
-    --body-background: #dee8f1;
-    --header-gradient: linear-gradient(90deg, #f1f5f8 0%, #99c6ef 100%);
+    --el-bcg: #f1f1f1;
 }

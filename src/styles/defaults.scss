@@ -6,7 +6,6 @@ html,
 body {
     font-family: var(--body-font-family);
     font-weight: var(--base-font-weight);
-    background-color: var(--body-background);
 }
 
 input[type="text"],
@@ -14,18 +13,18 @@ input[type="date"],
 textarea,
 select,
 option {
-    color: var(--dark-text-blue);
+    color: var(--blue-06);
 }
 
 ::-webkit-input-placeholder {
-    color: var(--dark-text-blue);
+    color: var(--blue-06);
 }
 ::-moz-placeholder {
-    color: var(--dark-text-blue);
+    color: var(--blue-06);
 }
 :-ms-input-placeholder {
-    color: var(--dark-text-blue);
+    color: var(--blue-06);
 }
 :-moz-placeholder {
-    color: var(--dark-text-blue);
+    color: var(--blue-06);
 }

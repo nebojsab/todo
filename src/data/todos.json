@@ -4,7 +4,7 @@
         "complete": false,
         "expired": false,
         "expiring": false,
-        "title": "A bit longer name to test some ellipsis",
+        "title": "Prepare interview questions for tomorrow's meeting",
         "description": "Nostrud excepteur tempor laborum occaecat mollit Lorem anim pariatur in nulla.",
         "date": "2021-07-03",
         "category": "Interviews"
@@ -14,7 +14,7 @@
         "complete": false,
         "expired": false,
         "expiring": false,
-        "title": "Name two",
+        "title": "Book Greece",
         "description": "Nostrud excepteur tempor laborum occaecat mollit Lorem anim pariatur in nulla.",
         "date": "2021-09-13",
         "category": "Travel spots"
@@ -24,7 +24,7 @@
         "complete": false,
         "expired": false,
         "expiring": false,
-        "title": "Name three",
+        "title": "Buy some beer",
         "description": "Nostrud excepteur tempor laborum occaecat mollit Lorem anim pariatur in nulla.",
         "date": "2021-06-03",
         "category": "Shop lists"
@@ -34,7 +34,7 @@
         "complete": false,
         "expired": false,
         "expiring": false,
-        "title": "Name four",
+        "title": "Repair chair",
         "description": "Nostrud excepteur tempor laborum occaecat mollit Lorem anim pariatur in nulla.",
         "date": "2021-05-05",
         "category": "Home notes"
@@ -44,9 +44,9 @@
         "complete": false,
         "expired": false,
         "expiring": false,
-        "title": "Name fiive",
+        "title": "Buy new headphones",
         "description": "Nostrud excepteur tempor laborum occaecat mollit Lorem anim pariatur in nulla.",
         "date": "2021-06-15",
-        "category": "Shop list notes"
+        "category": "Shop lists"
     }
 ]

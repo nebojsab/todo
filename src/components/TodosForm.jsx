@@ -18,7 +18,7 @@ const ToDoForm = styled.div`
 
 const TextInput = styled.div`
     position: relative;
-    background-color: var(--filter-input-field-bcg);
+    background-color: var(--el-bcg);
     display: flex;
     width: 100%;
     height: 50px;
@@ -27,7 +27,7 @@ const TextInput = styled.div`
     margin-bottom: 36px;
 
     input[type="text"] {
-        color: var(--dark-text-blue);
+        color: var(--blue-06);
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
@@ -42,7 +42,7 @@ const TextInput = styled.div`
 
 const TextArea = styled.div`
     position: relative;
-    background-color: var(--filter-input-field-bcg);
+    background-color: var(--el-bcg);
     display: flex;
     width: 100%;
     height: 150px;
@@ -70,14 +70,14 @@ const TextArea = styled.div`
         color: var(--text-dark-blue);
 
         &.is-invalid {
-            color: var(--red);
+            color: var(--expired);
         }
     }
 `;
 
 const SelectField = styled.div`
     position: relative;
-    background-color: var(--filter-input-field-bcg);
+    background-color: var(--el-bcg);
     display: flex;
     width: 100%;
     height: 50px;
@@ -118,7 +118,7 @@ const ButtonPrimary = styled.div`
 
 const DateField = styled.div`
     position: relative;
-    background-color: var(--filter-input-field-bcg);
+    background-color: var(--el-bcg);
     display: flex;
     width: 100%;
     height: 50px;

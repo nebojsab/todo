@@ -5,54 +5,262 @@ import TodosFilter from "./TodosFilter";
 import Modal from "./Modal";
 import Button from "./Button";
 import { device } from "../helpers/breakpoints";
-import logo from "../assets/images/todo-logo.png";
+
+const AllTodos = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 160px;
+    flex-basis: 100%;
+    background: var(--default-box-gradient);
+    border-radius: 15px;
+    padding: 36px 36px 24px;
+    margin-right: 14px;
+
+    @media ${device.mobile} {
+        min-height: unset;
+        width: 40%;
+        padding: 20px;
+        margin-bottom: 14px;
+        flex-basis: unset;
+        text-align: center;
+        min-height: 140px;
+
+        span {
+            margin-bottom: 0 !important;
+        }
+    }
+
+    @media ${device.tablet} {
+        width: 40%;
+        margin-bottom: 14px;
+        margin-right: 14px;
+        flex-basis: unset;
+    }
+
+    @media ${device.laptop} {
+        padding: 24px;
+    }
+
+    span {
+        font-size: var(--p1);
+        font-family: var(--heading-font-family);
+        font-weight: 500;
+        letter-spacing: 1px;
+        color: var(--white);
+        margin-bottom: 12px;
+    }
+
+    div {
+        font-size: var(--h1);
+        font-family: var(--heading-font-family);
+        font-weight: 100;
+        color: var(--white);
+    }
+`;
+
+const ExpiredTodos = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 160px;
+    flex-basis: 100%;
+    background: var(--expired-box-gradient);
+    border-radius: 15px;
+    padding: 36px 36px 24px;
+    margin-right: 14px;
+
+    @media ${device.mobile} {
+        min-height: unset;
+        width: 40%;
+        padding: 20px;
+        margin-bottom: 14px;
+        margin-right: 0;
+        flex-basis: unset;
+        text-align: center;
+        min-height: 140px;
+
+        span {
+            margin-bottom: 0 !important;
+        }
+    }
+
+    @media ${device.tablet} {
+        width: 40%;
+        margin-bottom: 14px;
+        margin-right: 0;
+        flex-basis: unset;
+    }
+
+    @media ${device.laptop} {
+        padding: 24px;
+    }
+
+    span {
+        font-size: var(--p1);
+        font-family: var(--heading-font-family);
+        font-weight: 500;
+        color: var(--white);
+        margin-bottom: 12px;
+    }
+
+    div {
+        font-size: var(--h1);
+        font-family: var(--heading-font-family);
+        font-weight: 100;
+        color: var(--white);
+    }
+`;
+
+const ExpiringTodos = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 160px;
+    flex-basis: 100%;
+    background: var(--expiring-box-gradient);
+    border-radius: 15px;
+    padding: 36px 36px 24px;
+    margin-right: 14px;
+
+    @media ${device.mobile} {
+        min-height: unset;
+        width: 40%;
+        padding: 20px;
+        margin-bottom: 14px;
+        flex-basis: unset;
+        text-align: center;
+        min-height: 140px;
+
+        span {
+            margin-bottom: 0 !important;
+        }
+    }
+
+    @media ${device.tablet} {
+        width: 40%;
+        margin-right: 14px;
+        flex-basis: unset;
+    }
+
+    @media ${device.laptop} {
+        padding: 24px;
+    }
+
+    span {
+        font-size: var(--p1);
+        font-family: var(--heading-font-family);
+        font-weight: 500;
+        color: var(--white);
+        margin-bottom: 12px;
+    }
+
+    div {
+        font-size: var(--h1);
+        font-family: var(--heading-font-family);
+        font-weight: 100;
+        color: var(--white);
+    }
+`;
+
+const CompleteTodos = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 160px;
+    flex-basis: 100%;
+    background: var(--completed-box-gradient);
+    border-radius: 15px;
+    padding: 36px 36px 24px;
+
+    @media ${device.mobile} {
+        min-height: unset;
+        width: 40%;
+        padding: 20px;
+        margin-bottom: 14px;
+        flex-basis: unset;
+        text-align: center;
+        min-height: 140px;
+
+        span {
+            margin-bottom: 0 !important;
+        }
+    }
+
+    @media ${device.tablet} {
+        width: 40%;
+        flex-basis: unset;
+    }
+
+    @media ${device.laptop} {
+        padding: 24px;
+    }
+
+    span {
+        font-size: var(--p1);
+        font-family: var(--heading-font-family);
+        font-weight: 500;
+        color: var(--white);
+        margin-bottom: 12px;
+    }
+
+    div {
+        font-size: var(--h1);
+        font-family: var(--heading-font-family);
+        font-weight: 100;
+        color: var(--white);
+    }
+`;
+
+const TodosCounter = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media ${device.mobile} {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    @media ${device.tablet} {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+`;
 
 const TodosContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding: 35px;
-    background-color: var(--pale-blue);
     border-radius: 15px;
     margin-top: -15px;
+
+    @media ${device.mobile} {
+        padding: 12px;
+    }
+
+    @media ${device.tablet} {
+        padding: 24px;
+    }
+
+    @media ${device.laptop} {
+        padding: 35px;
+    }
 `;
 
 const TodosControlBar = styled.div`
     display: flex;
     justify-content: space-between;
-    margin: 15px 0;
+    margin: 48px 0 24px;
     position: relative;
 
     @media ${device.mobile} {
-        flex-direction: column-reverse;
-    }
-
-    @media ${device.tablet} {
-        flex-direction: column-reverse;
-    }
-
-    @media ${device.laptop} {
-        flex-direction: column-reverse;
-    }
-`;
-
-const TodosLogo = styled.div`
-    @media ${device.mobile} {
-        position: relative;
-        margin-bottom: 24px;
-        text-align: center;
-    }
-
-    @media ${device.tablet} {
-        position: absolute;
-        top: 0;
-        right: 0;
-    }
-
-    @media ${device.laptop} {
-        position: absolute;
-        top: 0;
-        right: 0;
+        margin: 12px 0 36px;
     }
 `;
 
@@ -64,21 +272,12 @@ const FilterWrap = styled.div`
     @media ${device.mobile} {
         flex-direction: column;
         align-items: center;
-    }
-
-    @media ${device.tablet} {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    @media ${device.laptop} {
-        flex-direction: column;
-        align-items: flex-start;
+        margin: auto;
     }
 
     span {
         font-size: var(--p2);
-        color: var(--dark-text-blue);
+        color: var(--light-gray);
         margin-right: 10px;
 
         @media ${device.mobile} {
@@ -95,39 +294,23 @@ const FilterWrap = styled.div`
     }
 `;
 
-const CurrentDateAndTime = styled.div`
-    letter-spacing: 1px;
-    font-size: var(--p2);
-    color: var(--secondary-button-color);
-    background-color: var(--secondary-button-bcg);
+const ButtonAdd = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 0 2rem;
-    border-radius: 10px;
-    box-shadow: 0 1px 4px var(--secondary-button-color);
-    height: 50px;
 
-    @media ${device.mobile} {
-        max-width: fit-content;
-        margin: 0 auto 24px;
+    span {
+        margin-left: 10px;
+        color: var(--light-gray);
+        font-size: var(--p2);
+
+        @media ${device.mobile} {
+            display: none;
+        }
+
+        @media ${device.tablet} {
+            display: none;
+        }
     }
-
-    @media ${device.tablet} {
-        max-width: fit-content;
-        margin-bottom: 24px;
-    }
-
-    @media ${device.laptop} {
-        max-width: fit-content;
-        margin-bottom: 24px;
-    }
-`;
-
-const ButtonAdd = styled.div`
-    position: absolute;
-    left: 170px;
-    top: -75px;
 
     @media ${device.mobile} {
         position: fixed;
@@ -145,7 +328,7 @@ const ButtonAdd = styled.div`
         color: var(--white);
         font-size: var(--p3);
         padding: 6px 12px;
-        background-color: var(--primary-blue);
+        background: var(--default-box-gradient);
         border-radius: 4px;
         min-width: 120px;
         text-align: center;
@@ -160,7 +343,7 @@ const ButtonAdd = styled.div`
         height: 10px;
         position: absolute;
         display: block;
-        background-color: var(--primary-blue);
+        background: var(--default-box-gradient);
         transform: rotate(45deg);
         top: -15px;
         left: 20px;
@@ -176,12 +359,16 @@ export default function Todos({ todos, setTodos }) {
     const [status, setStatus] = useState("All");
     const [filterTodos, setFilteredTodos] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
-    const [dateVal, setDateVal] = useState(new Date());
 
     const handleTitleOnChange = (e) => setTitle(e.target.value);
     const handleDescriptionOnChange = (e) => setDescription(e.target.value);
     const handleDateOnChange = (e) => setDate(e.target.value);
     const handleCategoryOnChange = (e) => setCategory(e.target.value);
+
+    const allTodos = todos.length;
+    const expiredTodos = todos.filter((todo) => todo.expired == true);
+    const expiringTodos = todos.filter((todo) => todo.expiring == true);
+    const completedTodos = todos.filter((todo) => todo.complete == true);
 
     const toggleModal = () => {
         setModalVisible(!modalVisible);
@@ -280,30 +467,42 @@ export default function Todos({ todos, setTodos }) {
         filteredTodos();
     }, [todos, status]);
 
-    useEffect(() => {
-        var timer = setInterval(() => setDateVal(new Date()), 1000);
-        return function cleanup() {
-            clearInterval(timer);
-        };
-    });
-
     return (
         <TodosContainer>
+            <TodosCounter>
+                <AllTodos>
+                    <span>All ToDo's</span> <div>{allTodos}</div>
+                </AllTodos>
+                <ExpiredTodos>
+                    <span>Expired ToDo's</span>{" "}
+                    <div>
+                        {expiredTodos.length > 0 ? expiredTodos.length : "—"}
+                    </div>
+                </ExpiredTodos>
+                <ExpiringTodos>
+                    <span>Expiring ToDo's</span>{" "}
+                    <div>
+                        {expiringTodos.length > 0 ? expiringTodos.length : "—"}
+                    </div>
+                </ExpiringTodos>
+                <CompleteTodos>
+                    <span>Completed ToDo's</span>{" "}
+                    <div>
+                        {completedTodos.length > 0
+                            ? completedTodos.length
+                            : "—"}
+                    </div>
+                </CompleteTodos>
+            </TodosCounter>
             <TodosControlBar>
                 <ButtonAdd>
                     <Button type="addButton" onClick={toggleModal}></Button>
+                    <span>add new ToDo</span>
                 </ButtonAdd>
                 <FilterWrap>
                     <span>filter by status or by category</span>
                     <TodosFilter todos={todos} setStatus={setStatus} />
                 </FilterWrap>
-                <CurrentDateAndTime>
-                    {dateVal.toLocaleDateString()} —{" "}
-                    {dateVal.toLocaleTimeString()}
-                </CurrentDateAndTime>
-                <TodosLogo>
-                    <img src={logo} alt="Todo App" width="150" />
-                </TodosLogo>
             </TodosControlBar>
             <TodosList
                 todos={todos}
