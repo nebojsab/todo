@@ -20,6 +20,7 @@ const TodosLogo = styled.div`
         position: absolute;
         top: 20px;
         right: 20px;
+        transform: scale(0.8);
     }
 `;
 
@@ -30,6 +31,7 @@ const HeaderInfo = styled.div`
 
     @media ${device.mobile} {
         flex-direction: column;
+        margin-left: -14px;
         width: 100%;
         align-items: flex-start;
     }
@@ -45,6 +47,10 @@ const ToDoTitle = styled.h1`
     font-family: var(--heading-font-family);
     font-weight: 700;
     font-size: var(--h1);
+
+    @media ${device.mobile} {
+        font-size: var(--h3);
+    }
 `;
 
 const InfoWrap = styled.div`
