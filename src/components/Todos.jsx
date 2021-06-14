@@ -111,13 +111,6 @@ export default function Todos({ todos, setTodos }) {
         };
     }, [modalRef]);
 
-    // useEffect(() => {
-    //     const json = localStorage.getItem("newData");
-    //     if (json) {
-    //         setTodos(JSON.parse(json));
-    //     }
-    // }, []);
-
     useEffect(() => {
         filteredTodos();
     }, [todos, status]);

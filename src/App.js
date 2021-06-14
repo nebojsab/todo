@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import RandomUsers from "./components/RandomUsers";
+import Header from "./components/Header";
 import TodoContainer from "./components/TodoContainer";
 import { device } from "./helpers/breakpoints";
 import styled from "styled-components";
@@ -29,7 +29,7 @@ const ToDoContainer = styled.div`
 const App = () => {
     return (
         <ToDoContainer>
-            <RandomUsers />
+            <Header />
             <TodoContainer />
         </ToDoContainer>
     );
