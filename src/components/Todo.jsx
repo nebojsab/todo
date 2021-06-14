@@ -299,8 +299,6 @@ const TodosItem = styled.div`
     }
 
     &.is-expired {
-        overflow: hidden;
-        background-image: ;
         &::after {
             content: "expired";
             position: absolute;
@@ -487,7 +485,7 @@ export default function Todo({ todos, todo, setTodos }) {
                 <TodosTopRow>
                     <TodosTitle>{todo.title}</TodosTitle>
                     <TodosDueDate>
-                        Due date:{" "}
+                        <b>Due date:</b>{" "}
                         <span
                             className={`${
                                 todo.expired ? "expired__due-date" : ""
@@ -496,7 +494,9 @@ export default function Todo({ todos, todo, setTodos }) {
                             {todo.date}
                         </span>
                     </TodosDueDate>
-                    <TodosCat>Category: {todo.category}</TodosCat>
+                    <TodosCat>
+                        <b>Category:</b> {todo.category}
+                    </TodosCat>
                 </TodosTopRow>
                 <TodosDescription>{todo.description}</TodosDescription>
             </TodosItem>

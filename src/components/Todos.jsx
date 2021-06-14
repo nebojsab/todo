@@ -6,6 +6,182 @@ import Modal from "./Modal";
 import Button from "./Button";
 import { device } from "../helpers/breakpoints";
 
+export default function Todos({ todos, setTodos }) {
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [date, setDate] = useState("");
+    const [category, setCategory] = useState("");
+    const [status, setStatus] = useState("All");
+    const [filterTodos, setFilteredTodos] = useState([]);
+    const [modalVisible, setModalVisible] = useState(false);
+
+    const handleTitleOnChange = (e) => setTitle(e.target.value);
+    const handleDescriptionOnChange = (e) => setDescription(e.target.value);
+    const handleDateOnChange = (e) => setDate(e.target.value);
+    const handleCategoryOnChange = (e) => setCategory(e.target.value);
+
+    const allTodos = todos.length;
+    const expiredTodos = todos.filter((todo) => todo.expired == true);
+    const expiringTodos = todos.filter((todo) => todo.expiring == true);
+    const completedTodos = todos.filter((todo) => todo.complete == true);
+
+    const toggleModal = () => {
+        setModalVisible(!modalVisible);
+    };
+
+    const modalRef = useRef(null);
+
+    const filteredTodos = () => {
+        switch (status) {
+            case "All":
+                setFilteredTodos(
+                    todos.filter(
+                        (todo) =>
+                            todo.category === "Travel spots" ||
+                            "Interviews" ||
+                            "Shop lists" ||
+                            "Home notes"
+                    )
+                );
+                break;
+            case "Complete":
+                setFilteredTodos(todos.filter((todo) => todo.complete == true));
+                break;
+            case "Expired":
+                setFilteredTodos(todos.filter((todo) => todo.expired == true));
+                break;
+            case "Expiring":
+                setFilteredTodos(todos.filter((todo) => todo.expiring == true));
+                break;
+            case "Interviews":
+                setFilteredTodos(
+                    todos.filter((todo) => todo.category === "Interviews")
+                );
+                break;
+            case "Travel spots":
+                setFilteredTodos(
+                    todos.filter((todo) => todo.category === "Travel spots")
+                );
+                break;
+            case "Shop lists":
+                setFilteredTodos(
+                    todos.filter((todo) => todo.category === "Shop lists")
+                );
+                break;
+            case "Home notes":
+                setFilteredTodos(
+                    todos.filter((todo) => todo.category === "Home notes")
+                );
+                break;
+            default:
+        }
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setTodos([
+            ...todos,
+            {
+                title: title,
+                description: description,
+                date: date,
+                category: category,
+                id: Math.random() * 10,
+                complete: false,
+                expired: false,
+                expiring: false,
+            },
+        ]);
+        setTitle("");
+        setDescription("");
+        setDate("");
+        setCategory("");
+        toggleModal();
+    };
+
+    useEffect(() => {
+        function handleModalClickOutside(event) {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                setModalVisible(false);
+            }
+        }
+        document.addEventListener("mousedown", handleModalClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleModalClickOutside);
+        };
+    }, [modalRef]);
+
+    // useEffect(() => {
+    //     const json = localStorage.getItem("newData");
+    //     if (json) {
+    //         setTodos(JSON.parse(json));
+    //     }
+    // }, []);
+
+    useEffect(() => {
+        filteredTodos();
+    }, [todos, status]);
+
+    return (
+        <TodosContainer>
+            <TodosCounter>
+                <AllTodos>
+                    <span>All ToDo's</span> <div>{allTodos}</div>
+                </AllTodos>
+                <ExpiredTodos>
+                    <span>Expired ToDo's</span>{" "}
+                    <div>
+                        {expiredTodos.length > 0 ? expiredTodos.length : "—"}
+                    </div>
+                </ExpiredTodos>
+                <ExpiringTodos>
+                    <span>Expiring ToDo's</span>{" "}
+                    <div>
+                        {expiringTodos.length > 0 ? expiringTodos.length : "—"}
+                    </div>
+                </ExpiringTodos>
+                <CompleteTodos>
+                    <span>Completed ToDo's</span>{" "}
+                    <div>
+                        {completedTodos.length > 0
+                            ? completedTodos.length
+                            : "—"}
+                    </div>
+                </CompleteTodos>
+            </TodosCounter>
+            <TodosControlBar>
+                <ButtonAdd>
+                    <Button type="addButton" onClick={toggleModal}></Button>
+                    <span>add new ToDo</span>
+                </ButtonAdd>
+                <FilterWrap>
+                    <span>filter by status or by category</span>
+                    <TodosFilter todos={todos} setStatus={setStatus} />
+                </FilterWrap>
+            </TodosControlBar>
+            <TodosList
+                todos={todos}
+                setTodos={setTodos}
+                filterTodos={filterTodos}
+            />
+            <Modal
+                handleSubmit={handleSubmit}
+                handleTitleOnChange={handleTitleOnChange}
+                handleDescriptionOnChange={handleDescriptionOnChange}
+                handleDateOnChange={handleDateOnChange}
+                handleCategoryOnChange={handleCategoryOnChange}
+                title={title}
+                description={description}
+                date={date}
+                category={category}
+                modalVisible={modalVisible}
+                toggleModal={toggleModal}
+                modalRef={modalRef}
+            />
+        </TodosContainer>
+    );
+}
+
 const AllTodos = styled.div`
     display: flex;
     flex-direction: column;
@@ -350,179 +526,3 @@ const ButtonAdd = styled.div`
         transition: all ease-in 0.35s;
     }
 `;
-
-export default function Todos({ todos, setTodos }) {
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [date, setDate] = useState("");
-    const [category, setCategory] = useState("");
-    const [status, setStatus] = useState("All");
-    const [filterTodos, setFilteredTodos] = useState([]);
-    const [modalVisible, setModalVisible] = useState(false);
-
-    const handleTitleOnChange = (e) => setTitle(e.target.value);
-    const handleDescriptionOnChange = (e) => setDescription(e.target.value);
-    const handleDateOnChange = (e) => setDate(e.target.value);
-    const handleCategoryOnChange = (e) => setCategory(e.target.value);
-
-    const allTodos = todos.length;
-    const expiredTodos = todos.filter((todo) => todo.expired == true);
-    const expiringTodos = todos.filter((todo) => todo.expiring == true);
-    const completedTodos = todos.filter((todo) => todo.complete == true);
-
-    const toggleModal = () => {
-        setModalVisible(!modalVisible);
-    };
-
-    const modalRef = useRef(null);
-
-    const filteredTodos = () => {
-        switch (status) {
-            case "All":
-                setFilteredTodos(
-                    todos.filter(
-                        (todo) =>
-                            todo.category === "Travel spots" ||
-                            "Interviews" ||
-                            "Shop lists" ||
-                            "Home notes"
-                    )
-                );
-                break;
-            case "Complete":
-                setFilteredTodos(todos.filter((todo) => todo.complete == true));
-                break;
-            case "Expired":
-                setFilteredTodos(todos.filter((todo) => todo.expired == true));
-                break;
-            case "Expiring":
-                setFilteredTodos(todos.filter((todo) => todo.expiring == true));
-                break;
-            case "Interviews":
-                setFilteredTodos(
-                    todos.filter((todo) => todo.category === "Interviews")
-                );
-                break;
-            case "Travel spots":
-                setFilteredTodos(
-                    todos.filter((todo) => todo.category === "Travel spots")
-                );
-                break;
-            case "Shop lists":
-                setFilteredTodos(
-                    todos.filter((todo) => todo.category === "Shop lists")
-                );
-                break;
-            case "Home notes":
-                setFilteredTodos(
-                    todos.filter((todo) => todo.category === "Home notes")
-                );
-                break;
-            default:
-        }
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setTodos([
-            ...todos,
-            {
-                title: title,
-                description: description,
-                date: date,
-                category: category,
-                id: Math.random() * 10,
-                complete: false,
-                expired: false,
-                expiring: false,
-            },
-        ]);
-        setTitle("");
-        setDescription("");
-        setDate("");
-        setCategory("");
-        toggleModal();
-    };
-
-    useEffect(() => {
-        function handleModalClickOutside(event) {
-            if (modalRef.current && !modalRef.current.contains(event.target)) {
-                setModalVisible(false);
-            }
-        }
-        document.addEventListener("mousedown", handleModalClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleModalClickOutside);
-        };
-    }, [modalRef]);
-
-    useEffect(() => {
-        const json = localStorage.getItem("newData");
-        if (json) {
-            setTodos(JSON.parse(json));
-        }
-    }, []);
-
-    useEffect(() => {
-        filteredTodos();
-    }, [todos, status]);
-
-    return (
-        <TodosContainer>
-            <TodosCounter>
-                <AllTodos>
-                    <span>All ToDo's</span> <div>{allTodos}</div>
-                </AllTodos>
-                <ExpiredTodos>
-                    <span>Expired ToDo's</span>{" "}
-                    <div>
-                        {expiredTodos.length > 0 ? expiredTodos.length : "—"}
-                    </div>
-                </ExpiredTodos>
-                <ExpiringTodos>
-                    <span>Expiring ToDo's</span>{" "}
-                    <div>
-                        {expiringTodos.length > 0 ? expiringTodos.length : "—"}
-                    </div>
-                </ExpiringTodos>
-                <CompleteTodos>
-                    <span>Completed ToDo's</span>{" "}
-                    <div>
-                        {completedTodos.length > 0
-                            ? completedTodos.length
-                            : "—"}
-                    </div>
-                </CompleteTodos>
-            </TodosCounter>
-            <TodosControlBar>
-                <ButtonAdd>
-                    <Button type="addButton" onClick={toggleModal}></Button>
-                    <span>add new ToDo</span>
-                </ButtonAdd>
-                <FilterWrap>
-                    <span>filter by status or by category</span>
-                    <TodosFilter todos={todos} setStatus={setStatus} />
-                </FilterWrap>
-            </TodosControlBar>
-            <TodosList
-                todos={todos}
-                setTodos={setTodos}
-                filterTodos={filterTodos}
-            />
-            <Modal
-                handleSubmit={handleSubmit}
-                handleTitleOnChange={handleTitleOnChange}
-                handleDescriptionOnChange={handleDescriptionOnChange}
-                handleDateOnChange={handleDateOnChange}
-                handleCategoryOnChange={handleCategoryOnChange}
-                title={title}
-                description={description}
-                date={date}
-                category={category}
-                modalVisible={modalVisible}
-                toggleModal={toggleModal}
-                modalRef={modalRef}
-            />
-        </TodosContainer>
-    );
-}

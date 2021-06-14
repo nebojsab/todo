@@ -14,7 +14,7 @@ const ModalContent = styled.div`
     left: calc(50% - 240px);
     top: 100px;
     padding: 48px;
-    position: absolute;
+    position: fixed;
 
     @media ${device.mobile} {
         position: fixed;
