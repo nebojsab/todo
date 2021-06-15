@@ -2,17 +2,13 @@
 
 ToDo React application
 
-To run project locally clone the repository then run
+After cloning and installing the dependencies, start the application with:
 
 ### `npm install`
 
-to install all dependencies.
-
-Nex run
-
 ### `npm run dev`
 
-to start the app on http://localhost:1234
+View the application in the browser: http://localhost:1234
 
 ## How to use the App
 
@@ -21,7 +17,7 @@ to start the app on http://localhost:1234
 
 >`Expired` and `expiring` items will be styled accordingly when `due date` is equal or less than `2 days` or less than `0` days in the case of `expired ToDo` item.
 
-ToDo application is quite straightforward. Below are steps to run the app:
+ToDo application is straightforward. Below are steps to use the app:
 
 * To add new `ToDo` click on circular/round button with plus symbol. Modal will be opened. Fill all the fields and click on `Add new todo` button to submit your selection. Modal will be closed and new `ToDo` will be added in to the list.
 ><img src="https://i.imgur.com/bHyzE8R.png" alt="Add ToDo" width="600" />
