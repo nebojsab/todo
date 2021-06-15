@@ -11,7 +11,7 @@ import houseIco from "../assets/images/todo-house.png";
 const ButtonDelete = styled.div`
     position: absolute;
     right: 20px;
-    top: 42px;
+    top: -12px;
     font-size: var(--p2);
     text-transform: uppercase;
     background: none;
@@ -64,7 +64,7 @@ const ButtonDelete = styled.div`
 const ButtonComplete = styled.div`
     position: absolute;
     right: 70px;
-    top: 42px;
+    top: -12px;
     font-size: var(--p2);
     text-transform: uppercase;
     background: none;
@@ -257,28 +257,28 @@ const TodosItem = styled.div`
         background-image: url(${interviewIco});
         background-repeat: no-repeat;
         background-size: 140px;
-        background-position: right -20px bottom -30px;
+        background-position: right -20px bottom -40px;
     }
 
     &.is-travel-cat {
         background-image: url(${travelIco});
         background-repeat: no-repeat;
         background-size: 140px;
-        background-position: right -20px bottom -30px;
+        background-position: right -20px bottom -50px;
     }
 
     &.is-shop-cat {
         background-image: url(${shopIco});
         background-repeat: no-repeat;
         background-size: 140px;
-        background-position: right -20px bottom -30px;
+        background-position: right -20px bottom -40px;
     }
 
     &.is-home-cat {
         background-image: url(${houseIco});
         background-repeat: no-repeat;
         background-size: 140px;
-        background-position: right -20px bottom -30px;
+        background-position: right -20px bottom -40px;
     }
 
     @media ${device.mobile} {
